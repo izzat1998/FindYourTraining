@@ -36,33 +36,28 @@ LOGOUT_REDIRECT_URL = 'login'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social_django',
-    'authorization'
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    'post',
+    'userprofile',
 ]
+
+SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = [
-    'social_core.backends.linkedin.LinkedinOAuth2',
-    'social_core.backends.instagram.InstagramOAuth2',
-    'social_core.backends.facebook.FacebookOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
+        'django.contrib.auth.backends.ModelBackend',
+        'allauth.account.auth_backends.AuthenticationBackend',
+
 ]
 
-SOCIAL_AUTH_FACEBOOK_KEY = 376042429722982  # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = '380ba690d6e83ebc1c674cfc4aab67d3'  # App Secret
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link']  # add this
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {  # add this
-    'fields': 'id, name, email, picture.type(large), link'
-}
-SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [  # add this
-    ('name', 'name'),
-    ('email', 'email'),
-    ('picture', 'picture'),
-    ('link', 'profile_url'),
-]
 
 
 MIDDLEWARE = [
@@ -73,7 +68,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'FindYourTraining.middlewares.MyMiddleWare'
 ]
 
 ROOT_URLCONF = 'FindYourTraining.urls'
@@ -89,8 +83,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',  # add this
-                'social_django.context_processors.login_redirect',  # add this
             ],
         },
     },
