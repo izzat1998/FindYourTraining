@@ -7,10 +7,19 @@
     {% for post in posts %}
         <h4>{{ post.title }}</h4>
         <p>{{ post.body }}</p>
-    {% endfor %}
-    <form action="" method="post">
+        {% for comment in posts.comments.all %}
+        {{ comments }}
+        {% endfor %}
+
+        <form action="{% url 'post_comment' post.pk %}" method="post">
         {% csrf_token %}
-            <input type="text" style="width: 200px; height: 200px;" name="post_content">
+                <input type="text" name="post_comment">
+                <input type="submit" value="comment">
+        </form>
+    {% endfor %}
+    <form action="{% url 'user_page' %}" method="post">
+        {% csrf_token %}
+            <input type="text"  name="post_content">
             <input type="submit">
     </form>
 
