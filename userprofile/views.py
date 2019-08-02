@@ -13,6 +13,9 @@ class UserPage(View):
         current_user = UserProfile.objects.get(user=request.user)
         posts = Post.objects.filter(author=current_user)
         return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts})
+    # def post(self,request):
+
+
 
 
 class Home(TemplateView):

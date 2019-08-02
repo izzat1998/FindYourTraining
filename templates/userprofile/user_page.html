@@ -12,6 +12,11 @@
         <h4>{{ post.title }}</h4>
         <p>{{ post.body }}</p>
     {% endfor %}
+    <form action="" method="post">
+        {% csrf_token %}
+            <input type="text" style="width: 200px; height: 200px;" name="post_content">
+            <input type="submit">
+    </form>
 
 </body>
 </html>
