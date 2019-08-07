@@ -33,7 +33,7 @@ LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
 
 # Application definition
-
+ACCOUNT_ADAPTER =  'FindYourTraining.adapter.MyAccountAdapter'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

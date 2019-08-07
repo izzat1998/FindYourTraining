@@ -19,7 +19,8 @@ from django.urls import path, include
 from userprofile.views import Home
 
 urlpatterns = [
-    path('home/', Home.as_view(), name='home'),
+
+    path('', Home.as_view(), name='home'),
     path('userprofile/',include('userprofile.urls')),
     path('admin/', admin.site.urls),
     path('accounts/',include('allauth.urls')),
