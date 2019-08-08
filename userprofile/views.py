@@ -39,7 +39,8 @@ class UserPage(View):
         current_user = UserProfile.objects.get(user=request.user)
         Post.objects.create(body=content, author=current_user)
         posts = Post.objects.filter(author=current_user)
-        return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts})
+        friends = Friend.objects.filter(user=current_user)
+        return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts,'friends':friends})
 
 
 class PostComment(View):
