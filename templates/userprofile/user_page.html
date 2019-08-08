@@ -1,51 +1,79 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="content" style="margin-top:120px;">
-        <div class="container-fluid" style="background: red;">
+    <div class="profile-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <div class="side-bar">
+                        <a href="#">
+                            <div class="card imageside" data-toggle="modal" data-target="#myModal">
+                                <img class="card-img-top cardimage"
+                                     src="https://gastrotochka.com/img/profile_noimage.png"
+                                     alt="Edit photo">
+                                <span><i class="fa fa-camera"></i></span>
+                            </div>
+                        </a>
+                        <div class="card-body bodycard">
+                            <h5 class="card-title text-center imagetitle">Bonu Isroilova</h5>
+                        </div>
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3" style="background: lightskyblue">
-                        {% for friend in friends %}
-                        {{ friend.friend.name }}
-                        {% endfor %}
+                        <div class="modal fade" id="myModal">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content">
 
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Modal Heading</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
 
-                    </div>
-                    <div class="col-md-6" style="background: #1e7e34;"><h1>{{ user.name }}</h1>
-                        <h2>{{ user.birth_date }}</h2>
-                        <form action="{% url 'user_page' request.user.username %}" method="post">
-                            {% csrf_token %}
-                            <input type="text" name="post_content">
-                            <input type="submit">
-                        </form>
-                        {% for post in posts %}
-                            <h4>{{ post.title }}</h4>
-                            <p>{{ post.body }}</p>
-                            <form action="{% url 'post_comment' post.pk %}" method="post">
-                                {% csrf_token %}
-                                <input type="text" name="post_comment">
-                                <input type="submit" value="comment">
-                            </form>
-                            {% for comment in post.comment_set.all %}
-                                <p>{{ comment }}</p>
-                            {% endfor %}
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        Modal body..
+                                    </div>
 
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
 
-                        {% endfor %}
-                    </div>
-                    <div class="col-md-3" style="background: lightskyblue;">
-
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sidelists">
+                            <a href="#home"><i class="fa fa-fw fa-list-alt"></i> Home</a>
+                            <a href="#services"><i class="fa fa-fw fa-users"></i> Services</a>
+                            <a href="#clients"><i class="fa fa-fw fa-group"></i> Clients</a>
+                            <a href="#contact"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+                            <a href="#services"><i class="fa fa-fw fa-users"></i> Services</a>
+                            <a href="#clients"><i class="fa fa-fw fa-group"></i> Clients</a>
+                            <a href="#contact"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+                        </div>
                     </div>
                 </div>
 
-
+                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                    <div class="postfield">
+                        <div class="posticons">
+                            <span><i class="fa fa-fw fa-camera"></i> Photo</span> /
+                            <span><i class="fa fa-fw fa-video-camera"></i> Video</span>
+                        </div>
+                        <div class="form-em">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                <textarea class="form-control" rows="4" placeholder="Enter your comment"
+                                          id="comment"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group button-postfield">
+                            <button type="submit" class="button-sub">Submit</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3"></div>
+                </div>
             </div>
         </div>
     </div>
-
-
-
-
 {% endblock %}

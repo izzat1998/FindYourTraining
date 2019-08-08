@@ -1,0 +1,132 @@
+body {
+    margin: 0;
+    background-color: white;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+/*sidebar*/
+.side-bar {
+    width: 100%;
+    height: auto;
+    background-color: #f9f9f9;
+
+}
+
+
+.sidelists a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #818181;
+    display: block;
+}
+
+.sidelists a:hover {
+    color: #f1f1f1;
+}
+
+
+@media screen and (max-height: 450px) {
+    .sidelists {
+        padding-top: 15px;
+    }
+
+    .sidelists a {
+        font-size: 18px;
+    }
+}
+
+div.card span {
+    position: absolute;
+    left: 15%;
+    bottom: 15%;
+    display: none;
+}
+
+div.card:hover span {
+    display: inline-block;
+}
+
+div.card span i.fa {
+    font-size: 28px;
+    color: #26b7e7;
+}
+
+.imageside {
+    background-color: #f9f9f9;
+    border: none;
+
+}
+
+h5.imagetitle {
+    text-decoration: none;
+}
+
+.cardimage {
+    width: 80%;
+    position: relative;
+}
+
+div.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+}
+
+.bodycard {
+    padding: 5px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+div.profile-page {
+    margin-top: 90px;
+}
+
+.sidelists {
+    padding: 10px;
+}
+
+.postfield {
+    width: 100%;
+    background-color: #F9F9F9;
+    height: auto;
+    padding: 15px;
+}
+
+div.posticons span {
+    color: black;
+    font-weight: bold;
+}
+
+div.posticons {
+    padding-bottom: 10px;
+    padding-left: 15px;
+}
+
+div.postfield button.button-sub {
+    padding: 10px 20px;
+    color: white;
+    background-color: #26b7e7;
+    font-size: 20px;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 4px;
+
+}
+
+div.form-group {
+    display: flex;
+    justify-content: flex-end;
+
+
+}

@@ -8,3 +8,14 @@ admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(Friend)
 print("hello Aziza")
+
+
+
+# fyt
+# git init
+# git remote add origin https://github.com/izzat1998/FindYourTraining.git
+# git pull origin master
+#
+#
+##
+##
