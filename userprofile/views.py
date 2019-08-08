@@ -23,14 +23,14 @@ class Login(View):
             if user.check_password(password2):
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 return HttpResponseRedirect(reverse('user_page', kwargs={'username': user.username}))
-        return HttpResponse("WTF")
+        return HttpResponse("Not working")
 
 
 class UserPage(View):
     def get(self, request, username):
         current_user = UserProfile.objects.get(user=request.user)
         posts = Post.objects.filter(author=current_user)
-        friends= Friend.objects.filter(user=current_user)
+        friends= UserProfile.objects.all()
         return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts,'friends':friends})
 
     def post(self, request, username):
@@ -39,8 +39,14 @@ class UserPage(View):
         current_user = UserProfile.objects.get(user=request.user)
         Post.objects.create(body=content, author=current_user)
         posts = Post.objects.filter(author=current_user)
-        friends = Friend.objects.filter(user=current_user)
+        friends = UserProfile.objects.all()
         return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts,'friends':friends})
+
+
+class SendRequest(View):
+    def get(self,request,pk):
+        requested_
+        return HttpResponseRedirect(reverse('user_page', kwargs={'username': request.user.username}))
 
 
 class PostComment(View):
