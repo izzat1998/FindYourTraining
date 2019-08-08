@@ -7,9 +7,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3" style="background: lightskyblue">
-                        {% for friend in user.friends.all %}
-                            {{ friend }}
+                        {% for friend in friends %}
+                        {{ friend.friend.name }}
                         {% endfor %}
+
 
                     </div>
                     <div class="col-md-6" style="background: #1e7e34;"><h1>{{ user.name }}</h1>

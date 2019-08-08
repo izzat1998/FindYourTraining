@@ -9,7 +9,7 @@ from django.views import View
 from django.views.generic import TemplateView
 
 from post.models import Post, Comment
-from userprofile.models import UserProfile
+from userprofile.models import UserProfile, Friend
 
 
 class Login(View):
@@ -30,8 +30,8 @@ class UserPage(View):
     def get(self, request, username):
         current_user = UserProfile.objects.get(user=request.user)
         posts = Post.objects.filter(author=current_user)
-        all_users = UserProfile.objects.all()
-        return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts})
+        friends= Friend.objects.filter(user=current_user)
+        return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts,'friends':friends})
 
     def post(self, request, username):
         # CreatePost
