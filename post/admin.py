@@ -7,4 +7,4 @@ from userprofile.models import Friend
 admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(Friend)
-print("hello")
+print("hello Aziza")
