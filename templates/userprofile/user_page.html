@@ -71,7 +71,7 @@
                             <div class="form-em">
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                <textarea class="form-control " id="forsubmit" rows="3" name="post_content"
+                                <textarea class="form-control " rows="3" name="post_content"
                                           placeholder="Enter your post"
                                           id="comment"></textarea>
                                     </div>
@@ -82,7 +82,7 @@
                                         data-url="{% url 'create_post' %}">Submit
                                 </button>
                             </div>
-{#                                                        <div class="loading">Loading&#8230;</div>#}
+                            {#                                                        <div class="loading">Loading&#8230;</div>#}
                         </div>
                     </form>
                     {#  post comment#}
@@ -126,6 +126,7 @@
                                              alt="azizabonu">
                                         <textarea class="commentfield" width="2%" rows="2" cols="50" name="comment"
                                                   form="usrform" placeholder="enter your comment"></textarea>
+                                        <button id="test{{ forloop.counter }}" onclick="createComment( {{ post.pk }})">Comment</button>
                                     </div>
                                 </div>
                             </div>
@@ -139,59 +140,62 @@
     </div>
     {% block script %}
         <script>
-            var photoUploadBtn = document.querySelector('#upload-btn-p');
-            var videoUplaodBtn = document.querySelector('#upload-btn-v');
-            var fileUpload = document.getElementById('fileupload');
+                var photoUploadBtn = document.querySelector('#upload-btn-p');
+                var videoUplaodBtn = document.querySelector('#upload-btn-v');
+                var fileUpload = document.getElementById('fileupload');
 
-            console.log(fileUpload);
+                console.log(fileUpload);
 
-            $("#upload-btn-v").click( function(e) {
-                e.stopPropagation()
+                $("#upload-btn-v").click(function (e) {
+                    e.stopPropagation()
 
-                fileUpload.click();
-            });
+                    fileUpload.click();
+                });
 
-            $("#upload-btn-p").click(function(e){
-                e.stopPropagation()
-                fileUpload.click();
-            })
+                $("#upload-btn-p").click(function (e) {
+                    e.stopPropagation()
+                    fileUpload.click();
+                })
         </script>
 
         <script>
             jQuery(function () {
-                function sendAjax(event) {
-                    event.preventDefault();
-                    let formData = new FormData();
-                    formData.append("body", jQuery("textarea[name='post_content']").val());
-
-                    jQuery.ajax({
-                        url: '{% url 'create_post' %}',
-                        method: "POST",
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        success: onSuccess,
-                        error: onError,
-                    });
-                }
-
-                jQuery("#post_create").click(function (event) {
-                    sendAjax(event);
-                });
-
-                jQuery('textarea').keypress(function (event) {
-
-                    var keycode = (event.keyCode ? event.keyCode : event.which);
-                    if (keycode == '13') {
-                        sendAjax(event);
+                    function sendAjax(event) {
+                        event.preventDefault();
+                        let formData = new FormData();
+                        formData.append("body", jQuery("textarea[name='post_content']").val());
+                        jQuery.ajax({
+                            url: '{% url 'create_post' %}',
+                            method: "POST",
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: onSuccess,
+                            error: onError,
+                        });
                     }
-                    event.stopPropagation();
-                });
 
 
-            });
+                    jQuery("#post_create").click(function (event) {
+                        sendAjax(event);
+                    });
+
+
+                    jQuery('textarea').keypress(function (event) {
+
+                        var keycode = (event.keyCode ? event.keyCode : event.which);
+                        if (keycode == '13') {
+                            sendAjax(event);
+                        }
+                        event.stopPropagation();
+                    });
+
+
+                }
+            );
 
             function onSuccess(data) {
+                console.log(data);
                 jQuery("div.posts-div").prepend(`
                     <div class="postfield comfield">
                         <div class="profile-top">
