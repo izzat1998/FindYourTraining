@@ -16,13 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from userprofile.views import Home, SendRequest
+from userprofile.views import Home
 
 urlpatterns = [
 
     path('', Home.as_view(), name='home'),
     path('userprofile/',include('userprofile.urls')),
-    path('sendrequest/<int:pk>',SendRequest.as_view(),name='send_friend_request'),
+    # path('sendrequest/<int:pk>',SendRequest.as_view(),name='send_friend_request'),
     path('admin/', admin.site.urls),
     path('accounts/',include('allauth.urls')),
 
