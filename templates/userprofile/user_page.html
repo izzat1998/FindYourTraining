@@ -15,7 +15,7 @@
                             </div>
                         </a>
                         <div class="card-body bodycard">
-                            <h5 class="card-title text-center imagetitle">Bonu Isroilova</h5>
+                            <h5 class="card-title text-center imagetitle">{{ user.name }}</h5>
                         </div>
 
                         <div class="modal fade" id="myModal">
@@ -58,114 +58,54 @@
                         {% csrf_token %}
                         <div class="postfield">
                             <div class="posticons">
-                                <input type="file" style="display: none" name="fileupload" value="fileupload"
-                                       id="fileupload">
-                                <a id="upload-btn-p">
-                                    <span><i class="fa fa-fw fa-camera"></i> Photo</span>
-                                </a>
-                                /
-                                <a id="upload-btn-v">
-                                    <span><i class="fa fa-fw fa-video-camera"></i> Video</span>
-                                </a>
+                                <span><i class="fa fa-fw fa-camera"></i> Photo</span> /
+                                <span><i class="fa fa-fw fa-video-camera"></i> Video</span>
                             </div>
                             <div class="form-em">
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                <textarea class="form-control" rows="3" name="post_content"
-                                          placeholder="Enter your post"
+                                <textarea class="form-control" rows="4" name="post_content" placeholder="Enter your post"
                                           id="comment"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group button-postfield">
-                                <button type="submit" id="post_create" class="button-sub"
-                                        data-url="{% url 'create_post' %}">Submit
-                                </button>
+                                <button type="submit" id="post_create" class="button-sub" data-url="{% url 'user_page' user.name %}">Submit</button>
                             </div>
-{#                                                        <div class="loading">Loading&#8230;</div>#}
                         </div>
                     </form>
-                    {#  post comment#}
-                    <div class="posts-div">
+                    <div class="post-list">
                         {% for post in posts %}
-                            <div class="postfield comfield">
-                                <div class="profile-top">
-                                    <a href="#" class="profileside">
-                                        <img class="card-img-top "
-                                             src="https://gastrotochka.com/img/profile_noimage.png"
-                                             alt="Edit photo"> <span>azizbonu</span> </a>
-                                    <div class="dropdown">
-                                        <a href="#" class="profilemenu " id="dropdownMenuButton" data-toggle="dropdown"
-                                           aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"
-                                                                                         aria-hidden="true"></i></a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Delete</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-em">
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <p>{{ post }}</p>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="likesandcomment">
-                                    <a data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" role="button"
-                                       aria-expanded="false" aria-controls="collapseExample" class="class">
-                                        <div><i class="fa fa-comment-o"></i> <span> Comment</span></div>
-                                    </a>
-
-                                    <div><i class="fa fa-star-o"></i><span> Likes</span></div>
-                                </div>
-                                <div class="collapse" id="collapseExample{{ forloop.counter }}">
-                                    <div class="collapse-com">
-                                        <img class="card-img-top"
-                                             src="https://gastrotochka.com/img/profile_noimage.png"
-                                             alt="azizabonu">
-                                        <textarea class="commentfield" width="2%" rows="2" cols="50" name="comment"
-                                                  form="usrform" placeholder="enter your comment"></textarea>
-                                    </div>
-                                </div>
-                            </div>
+                            <p>{{ post }}</p>
                         {% endfor %}
                     </div>
 
-                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3"></div>
+
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <h3>Users</h3>
+                    <br>
+                        {% for friend in friends %}
+                            <a href="{% url 'send_friend_request' friend.pk %}"><li>{{ friend }}</li></a></br>
+                        {% endfor %}
+
+                    </ul>
+
                 </div>
             </div>
         </div>
     </div>
     {% block script %}
         <script>
-            var photoUploadBtn = document.querySelector('#upload-btn-p');
-            var videoUplaodBtn = document.querySelector('#upload-btn-v');
-            var fileUpload = document.getElementById('fileupload');
-
-            console.log(fileUpload);
-
-            $("#upload-btn-v").click( function(e) {
-                e.stopPropagation()
-
-                fileUpload.click();
-            });
-
-            $("#upload-btn-p").click(function(e){
-                e.stopPropagation()
-                fileUpload.click();
-            })
-        </script>
-
-        <script>
-            jQuery(function () {
-                function sendAjax(event) {
+            $(function () {
+                $("#post_create").click(function (event) {
                     event.preventDefault();
-                    let formData = new FormData();
-                    formData.append("body", jQuery("textarea[name='post_content']").val());
 
-                    jQuery.ajax({
-                        url: '{% url 'create_post' %}',
+                    let formData = new FormData();
+                    formData.append("csrfmiddlewaretoken", $("input[name='csrfmiddlewaretoken']").val());
+                    formData.append("post_content", $("textarea[name='post_content']").val());
+
+                    $.ajax({
                         method: "POST",
                         data: formData,
                         contentType: false,
@@ -173,72 +113,17 @@
                         success: onSuccess,
                         error: onError,
                     });
+                });
+
+                function onSuccess(data) {
+                    $("div.post-list").prepend(`<p>${$("textarea[name='post_content']").val()}</p>`);
+                    $("textarea[name='post_content']").val("");
                 }
 
-                jQuery("#post_create").click(function (event) {
-                    sendAjax(event);
-                });
-
-                jQuery('textarea').keypress(function (event) {
-
-                    var keycode = (event.keyCode ? event.keyCode : event.which);
-                    if (keycode == '13') {
-                        sendAjax(event);
-                    }
-                    event.stopPropagation();
-                });
-
-
+                function onError(data) {
+                    alert("error");
+                }
             });
-
-            function onSuccess(data) {
-                jQuery("div.posts-div").prepend(`
-                    <div class="postfield comfield">
-                        <div class="profile-top">
-                            <a href="#" class="profileside">
-                                <img class="card-img-top "
-                                     src="https://gastrotochka.com/img/profile_noimage.png"
-                                     alt="Edit photo"> <span>azizbonu</span> </a>
-                            <div class="dropdown">
-                                <a href="#" class="profilemenu " id="dropdownMenuButton" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"
-                                                                                 aria-hidden="true"></i></a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Delete</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-em">
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <p>${data.body}</p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="likesandcomment">
-                            <a data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" role="button"
-                               aria-expanded="false" aria-controls="collapseExample" class="class">
-                                <div><i class="fa fa-comment-o"></i> <span> Comment</span></div>
-                            </a>
-
-                            <div><i class="fa fa-star-o"></i><span> Likes</span></div>
-                        </div>
-                        <div class="collapse" id="collapseExample{{ forloop.counter }}">
-                            <div class="collapse-com">
-                                <img class="card-img-top "
-                                     src="https://gastrotochka.com/img/profile_noimage.png"
-                                     alt="azizabonu">
-                                  <textarea class="commentfield"  width="2%" rows="2" cols="50" name="comment" form="usrform" placeholder="enter your comment"></textarea>
-                            </div>
-                        </div>
-                    </div>`);
-                jQuery("textarea[name='post_content']").val("");
-            }
-
-            function onError(data) {
-                alert("error");
-            }
         </script>
     {% endblock %}
 {% endblock %}
