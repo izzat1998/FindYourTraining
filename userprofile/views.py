@@ -3,10 +3,12 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
+from rest_framework.generics import CreateAPIView
 # Create your views here.
 from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView
+from rest_framework.serializers import ModelSerializer
 
 from post.models import Post, Comment
 from userprofile.models import UserProfile, Friend
@@ -30,17 +32,25 @@ class UserPage(View):
     def get(self, request, username):
         current_user = UserProfile.objects.get(user=request.user)
         posts = Post.objects.filter(author=current_user)
-        friends= Friend.objects.filter(user=current_user)
-        return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts,'friends':friends})
-
-    def post(self, request, username):
-        # CreatePost
-        content = request.POST.get('post_content')
-        current_user = UserProfile.objects.get(user=request.user)
-        Post.objects.create(body=content, author=current_user)
-        posts = Post.objects.filter(author=current_user)
         friends = Friend.objects.filter(user=current_user)
-        return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts,'friends':friends})
+        return render(request, 'userprofile/user_page.html',
+                      context={'user': current_user, 'posts': posts, 'friends': friends})
+
+
+class CreatePostS(ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ('body', )
+
+
+class CreatePost(CreateAPIView):
+    serializer_class = CreatePostS
+    queryset = Post.objects.all()
+
+    def perform_create(self, serializer):
+        ins = serializer.save()
+        ins.author = self.request.user.userprofile
+        ins.save()
 
 
 class PostComment(View):

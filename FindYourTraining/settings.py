@@ -33,7 +33,7 @@ LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
 
 # Application definition
-ACCOUNT_ADAPTER =  'FindYourTraining.adapter.MyAccountAdapter'
+ACCOUNT_ADAPTER = 'FindYourTraining.adapter.MyAccountAdapter'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -51,16 +54,13 @@ INSTALLED_APPS = [
     'userprofile',
 ]
 
-
 SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = [
-        'django.contrib.auth.backends.ModelBackend',
-        'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 
 ]
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

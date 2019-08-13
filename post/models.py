@@ -7,10 +7,10 @@ class Post(models.Model):
     body = models.TextField(blank=True, null=True)
     date_pub = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
-    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
 
     class Meta:
-        ordering =['-date_pub',]
+        ordering =['-date_pub', ]
 
     def __str__(self):
         return self.body or ""
