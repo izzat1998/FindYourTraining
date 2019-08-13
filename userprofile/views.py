@@ -9,7 +9,7 @@ from django.views import View
 from django.views.generic import TemplateView
 
 from post.models import Post, Comment
-from userprofile.models import UserProfile, Friend
+from userprofile.models import UserProfile, Friend, Requests
 
 
 class Login(View):
@@ -30,8 +30,8 @@ class UserPage(View):
     def get(self, request, username):
         current_user = UserProfile.objects.get(user=request.user)
         posts = Post.objects.filter(author=current_user)
-        friends= UserProfile.objects.all()
-        return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts,'friends':friends})
+        friends = UserProfile.objects.all()
+        return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts, 'friends': friends})
 
     def post(self, request, username):
         # CreatePost
@@ -40,13 +40,27 @@ class UserPage(View):
         Post.objects.create(body=content, author=current_user)
         posts = Post.objects.filter(author=current_user)
         friends = UserProfile.objects.all()
-        return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts,'friends':friends})
+        return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts, 'friends': friends})
+
+
+class CreateRequest(View):
+    def post(self, request):
+        r_id = request.POST.get("r_id")
+        s_id = request.POST.get("s_id")
+        Requests.objects.create(sender_id=s_id, receiver_id=r_id)
+        return HttpResponse()
 
 
 class SendRequest(View):
-    def get(self,request,pk):
-        requested_
-        return HttpResponseRedirect(reverse('user_page', kwargs={'username': request.user.username}))
+
+    def get(self, request, pk):
+        try:
+            requested_be_friend = UserProfile.objects.get(pk=pk)
+            current_user = UserProfile.objects.get(user=request.user)
+            current_user.sended_requests.create()
+            return HttpResponseRedirect(reverse('user_page', kwargs={'username': request.user.username}))
+        except:
+            return HttpResponse('Error in send_request')
 
 
 class PostComment(View):
