@@ -157,7 +157,12 @@
 {% block script %}
     <script>
 
-
+$(function(){
+    $(document).on('click', '.class', function (event) {
+       let a = $(this).parent().next().find('textarea.commentfield');
+       a.focus();
+    })
+})
 </script>
         <script>
                 var photoUploadBtn = document.querySelector('#upload-btn-p');
@@ -256,6 +261,7 @@
                             </div>
                         </div>
                     </div>`);
+                {#$('textarea.commentfield').first().focus();#}
                 jQuery("textarea[name='post_content']").val("");
             }
 
