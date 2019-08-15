@@ -18,10 +18,22 @@
     <link rel="stylesheet" href="{% static 'css/progressbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
     <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/croppie.css' %}" rel="stylesheet">
     {#Handmade css#}
     <link rel="stylesheet" href="{% static 'css/style1.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <link rel="stylesheet" href="{% static 'css/profilepage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <style>
+.popover.fade.bs-popover-bottom.show {
+    z-index: 9999;
+}
+    </style>
     {% block link %}
     {% endblock %}
 </head>
@@ -29,69 +41,87 @@
 <div id="main">
     <header id="home">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light menu-nav">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
+
+            <nav class="navbar navbar-expand-md navbar-light bg-light menu-nav">
+                <div class="container"><a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" data-toggle="popover" title="Popover Header" data-placement="bottom" data-content="Some content inside the popover">Map</a>
+                        </li>
+                        <li class="nav-item active">
+                           <a class="nav-link" data-toggle="popover" title="Popover Header" data-placement="bottom" data-content="Some content inside the popover">Competition</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">About project</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav mr-lg-5 mr-2 ">
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                Language <span><i class="fa fa-caret-down"></i></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Russian</a>
+                                <a class="dropdown-item" href="#">English</a>
+
+                            </div>
+                        </li>
+                         <li class="nav-item active">
+                            <a class="nav-link" href="#">Login</a>
+                        </li>
+
+                    </ul>
+
+                </div></div>
+
+
+            </nav>
+
     </header>
     {% block content %}
 
     {% endblock %}
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
-    <!--====== PLUGINS JS ======-->
-    <script src="{% static 'js/vendor/jquery.easing.1.3.js' %}"></script>
-    <script src="{% static 'js/vendor/jquery-migrate-1.2.1.min.js' %}"></script>
-    <script src="{% static 'js/vendor/jquery.appear.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'js/stellar.js' %}"></script>
-    <script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
-    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
-    <script src="{% static 'js/wow.min.js' %}"></script>
-    <script src="{% static 'js/stellarnav.min.js' %}"></script>
-    <script scr="{% static 'js/bootstrap.js' %}"></script>
-    <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
-    <script src="{% static 'js/contact-form.js' %}"></script>
-    <script src="{% static 'js/jquery.sticky.js' %}"></script>
-    <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
-     <script src="{% static 'js/maps.active.js' %}"></script>
-     <script src="{% static 'js/csrf.js' %}"></script>
+
+
+{#<script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>#}
+<!--====== PLUGINS JS ======-->
+<script src="{% static 'js/vendor/jquery.easing.1.3.js' %}"></script>
+<script src="{% static 'js/vendor/jquery-migrate-1.2.1.min.js' %}"></script>
+<script src="{% static 'js/vendor/jquery.appear.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/stellar.js' %}"></script>
+<script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/stellarnav.min.js' %}"></script>
+{#<script scr="{% static 'js/bootstrap.js' %}"></script>#}
+<script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+<script src="{% static 'js/contact-form.js' %}"></script>
+<script src="{% static 'js/jquery.sticky.js' %}"></script>
+{#<script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>#}
+<script src="{% static 'js/maps.active.js' %}"></script>
+<script src="{% static 'js/csrf.js' %}"></script>
+<script src="{% static 'js/croppie.min.js' %}"></script>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();
+});
+
+</script>
 {% block script %}
 {% endblock %}
 </body>

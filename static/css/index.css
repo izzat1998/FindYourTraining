@@ -10,8 +10,7 @@ html {
     background: white;
 }
 
-/* Navigation bar */
-/* left-side */
+
 .menu-nav {
     position: fixed;
     top: 0;
@@ -21,95 +20,45 @@ html {
     min-height: 63px;
     background-color: #f9f9f9;
     z-index: 4500;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
 }
 
-.navigation-bar ul.nav-left {
-
-    list-style: none;
-    text-align: center;
-    padding: 20px;
-}
-
-.navigation-bar ul.nav-right {
-    list-style: none;
-    text-align: center;
-    padding: 20px;
-}
-
-.navigation-bar ul.nav-right li {
-    display: inline-block;
-    right: 0;
-}
-
-.navigation-bar ul.nav-left li {
-    display: inline-block;
-    left: 0;
-}
-
-.navigation-bar ul li a {
-
+nav ul li a {
     text-transform: uppercase;
-    text-decoration: none;
-    letter-spacing: 0.30em;
-    display: block;
-    padding: 10px 16px;
-    position: relative;
-    color: #222;
-    font-size: 16px;
 }
 
-.navigation-bar ul li a:after {
-    background: none repeat scroll 0 0 transparent;
+nav ul li a,
+ nav ul li a:after,
+ nav ul li a:before {
+    transition: all 0.5s;
+}
+
+ nav ul li a:after {
+    position: absolute;
     bottom: 0;
-    content: "";
-    height: 4px;
-    border-radius: 5px;
-    left: 50%;
-    position: absolute;
-    background: #ef5a1f;
-    transition: width 0.3s ease 0s, left 0.3s ease 0s;
-    width: 0;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 10px 10px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.navigation-bar ul li a:hover {
-    color: #ef5a1f;
-}
-
-.navigation-bar ul li a:hover:after {
-    width: 100%;
     left: 0;
+    right: 0;
+    margin: auto;
+    width: 0%;
+    content: '.';
+    color: transparent;
+    background: #26B7E7;
+    height: 3px;
+     border-radius: 3px;
 }
 
-.navigation-bar {
-    display: flex;
-    list-style-type: none;
-    justify-content: space-between;
+ nav ul li a:hover {
+    color: #555;
 }
 
+nav ul li a {
+    position: relative;
+}
 
-
-
+nav ul li a:hover:after {
+    width: 100%;
+}
 
 
 @media screen and (max-height: 300px) {

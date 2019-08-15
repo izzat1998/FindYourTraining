@@ -27,20 +27,96 @@ div.postfield div.button-postfield {
 
 }
 
+.online_users {
+    max-width: 100%;
+    height: auto;
+    background-color: #26b7e7;
+    margin: 20px 0;
+    padding: 5px 25px;
+    color: white;
+    font-size: 18px;
+}
 
 .sidelists a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 21px;
     color: #818181;
     display: block;
 }
 
-.sidelists a:hover {
-    color: #f1f1f1;
+.online-user {
+    width: 100%;
+    height: auto;
+    background-color: red;
+
 }
 
+@-webkit-keyframes circle {
+    0% {
+        width: 1px;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        height: 1px;
+        z-index: -1;
+        background: #eee;
+        border-radius: 100%;
+    }
+    100% {
+        background: #aaa;
+        height: 5000%;
+        width: 5000%;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        border-radius: 0;
+    }
+}
 
+/**/
+.sidelists > ul > li > a {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.sidelists > ul > li > a:after {
+    display: block;
+    position: absolute;
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '.';
+    color: transparent;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.sidelists > ul > li > a,
+.sidelists ul li a:after,
+.sidelists ul li a:before {
+    transition: all .5s;
+}
+
+.sidelists > ul > li > a:hover {
+    color: #555;
+}
+
+.sidelists > ul > li > a:hover:after {
+    -webkit-animation: circle 1.5s ease-in forwards;
+}
+
+/**/
 @media screen and (max-height: 450px) {
     .sidelists {
         padding-top: 15px;
@@ -179,7 +255,7 @@ div.comfield div.likesandcomment {
     background-color: #F9F9F9 !important;
     border-top: 1px solid rgba(0, 0, 0, .125) !important;
     padding: 20px;
-    transition: 0.5s ease-in-out;
+    transition: 0.1s ease-in-out;
 
 }
 
@@ -198,9 +274,10 @@ div.collapse-com > img {
 }
 
 /*custom file uplaod by Kamuran-*/
-a#upload-btn-p:hover, a#upload-btn-v:hover{
-    cursor:pointer;
+a#upload-btn-p:hover, a#upload-btn-v:hover {
+    cursor: pointer;
 }
+
 .collapse-com > .commentfield {
     margin-left: 10px;
 }
@@ -235,6 +312,7 @@ div.postfield > div.loading:before {
 
 }
 
+
 /* :not(:required) hides these rules from IE9 and below */
 .loading:not(:required) {
     /* hide "loading..." text */
@@ -249,7 +327,7 @@ div.postfield > div.loading:before {
     content: '';
     display: block;
     font-size: 10px;
-        position: absolute;
+    position: absolute;
     bottom: 50%;
     right: 50%;
     width: 1em;
