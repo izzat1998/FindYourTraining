@@ -126,21 +126,21 @@
                                     </div>
                                 </div>
                                 <div class="likesandcomment">
-                                    <a data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" role="button"
+                                    <a data-toggle="collapse" href="#collapseExample{{ post.id }}" role="button"
                                        aria-expanded="false" aria-controls="collapseExample" class="class">
                                         <div><i class="fa fa-comment-o"></i> <span> Comment</span></div>
                                     </a>
 
                                     <div><i class="fa fa-star-o"></i><span> Likes</span></div>
                                 </div>
-                                <div class="collapse" id="collapseExample{{ forloop.counter }}">
+                                <div class="collapse" id="collapseExample{{ post.id }}">
                                     <div class="collapse-com">
                                         <img class="card-img-top"
                                              src="https://gastrotochka.com/img/profile_noimage.png"
                                              alt="azizabonu">
                                         <textarea class="commentfield" width="2%" rows="2" cols="50" name="comment"
                                                   form="usrform" placeholder="enter your comment" autofocus></textarea>
-                                        <button id="test{{ forloop.counter }}" onclick="createComment( {{ post.pk }})">Comment</button>
+                                        <button id="test{{ post.id }}" onclick="createComment( {{ post.pk }})">Comment</button>
                                     </div>
                                 </div>
                             </div>
@@ -195,7 +195,6 @@
                         });
                     }
 
-
                     jQuery("#post_create").click(function (event) {
                         sendAjax(event);
                     });
@@ -241,14 +240,14 @@
                             </div>
                         </div>
                         <div class="likesandcomment">
-                            <a data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" role="button"
+                            <a data-toggle="collapse" href="#collapseExample${data.id}" role="button"
                                aria-expanded="false" aria-controls="collapseExample" class="class">
                                 <div><i class="fa fa-comment-o"></i> <span> Comment</span></div>
                             </a>
 
                             <div><i class="fa fa-star-o"></i><span> Likes</span></div>
                         </div>
-                        <div class="collapse" id="collapseExample{{ forloop.counter }}">
+                        <div class="collapse" id="collapseExample${data.id}">
                             <div class="collapse-com">
                                 <img class="card-img-top "
                                      src="https://gastrotochka.com/img/profile_noimage.png"

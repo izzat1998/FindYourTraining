@@ -41,7 +41,7 @@ class UserPage(View):
 class PostSerializer(ModelSerializer):
     class Meta:
         model = Post
-        fields = ('body',)
+        fields = ('id', 'body', )
 
 
 class CommentSerializer(ModelSerializer):
