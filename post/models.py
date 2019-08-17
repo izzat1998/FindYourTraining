@@ -21,7 +21,7 @@ class Comment(models.Model):
     date_pub = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='comments',null=True,blank=True)
 
     class Meta:
         ordering = ['-date_pub', ]

@@ -6,7 +6,7 @@
             {% csrf_token %}
             <div class="postfield">
                 <div class="posticons">
-                    <input type="file"  name="fileupload"
+                    <input type="file" style="display: none;  " name="fileupload"
                            value="fileupload"
                            id="fileupload">
                     <a id="upload-btn-p">
@@ -80,8 +80,7 @@
                                       name="comment"
                                       form="usrform" placeholder="enter your comment"
                                       autofocus></textarea>
-                            <button id="test{{ post.id }}"
-                                    onclick="createComment( {{ post.pk }})">
+                            <button id="texst{{ post.id }}" data-post-id="{{ post.id }}" class="class1">
                                 Comment
                             </button>
                         </div>
@@ -113,55 +112,92 @@
         console.log(fileUpload);
 
         $("#upload-btn-v").click(function (e) {
-            e.stopPropagation()
+            e.stopPropagation();
 
             fileUpload.click();
         });
 
         $("#upload-btn-p").click(function (e) {
-            e.stopPropagation()
+            e.stopPropagation();
             fileUpload.click();
         })
     </script>
 
     <script>
-        jQuery(function () {
-                function sendAjax(event) {
-                    event.preventDefault();
-                    let formData = new FormData();
-                    formData.append("body", jQuery("textarea[name='post_content']").val());
-                    jQuery.ajax({
-                        url: '{% url 'create_post' %}',
-                        method: "POST",
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        success: onSuccess,
-                        error: onError,
-                    });
-                }
+        $(function () {
+            $(".class1").click(function (e) {
+                e.preventDefault();
+                console.log($(this).data("post-id"));
 
-                jQuery("#post_create").click(function (event) {
-                    sendAjax(event);
+                let formData = new FormData();
+                formData.append("post", $(this).data("post-id"));
+                formData.append("content", $(this).prev().val());
+                jQuery.ajax({
+                    url: '{% url 'create_comment' %}',
+                    method: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: onSuccess2,
+                    error: onError,
                 });
+            });
+            {#function create_comment(event, post) {#}
+            {#    event.preventDefault();#}
+            {#    let formData = new FormData();#}
+            {#    formData.append("content", jQuery("textarea[name='comment']").val());#}
+            {#    formData.append("post", post);#}
+            {#    jQuery.ajax({#}
+            {#        url: '{% url 'create_comment' %}',#}
+            {#        method: "POST",#}
+            {#        data: formData,#}
+            {#        contentType: false,#}
+            {#        processData: false,#}
+            {#        success: onSuccess,#}
+            {#        error: onError,#}
+            {#    });#}
 
 
-                jQuery('textarea').keypress(function (event) {
-
-                    var keycode = (event.keyCode ? event.keyCode : event.which);
-                    if (keycode == '13') {
-                        sendAjax(event);
+            jQuery(function () {
+                    function sendAjax(event) {
+                        event.preventDefault();
+                        let formData = new FormData();
+                        formData.append("body", jQuery("textarea[name='post_content']").val());
+                        jQuery.ajax({
+                            url: '{% url 'create_post' %}',
+                            method: "POST",
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: onSuccess,
+                            error: onError,
+                        });
                     }
-                    event.stopPropagation();
-                });
 
+                    jQuery("#post_create").click(function (event) {
+                        sendAjax(event);
+                    });
+
+
+                    jQuery('textarea').keypress(function (event) {
+
+                        var keycode = (event.keyCode ? event.keyCode : event.which);
+                        if (keycode == '13') {
+                            sendAjax(event);
+                        }
+                        event.stopPropagation();
+                    });
+
+
+                }
+            );
+            function onSuccess2(data) {
 
             }
-        );
 
-        function onSuccess(data) {
-            console.log(data);
-            jQuery("div.posts-div").prepend(`
+            function onSuccess(data) {
+                console.log(data);
+                jQuery("div.posts-div").prepend(`
                     <div class="postfield comfield">
                         <div class="profile-top">
                             <a href="#" class="profileside">
@@ -173,7 +209,7 @@
                                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"
                                                                                  aria-hidden="true"></i></a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Delete</a>
+                                    <a class="dropdown-item" href="">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -202,17 +238,21 @@
                             </div>
                         </div>
                     </div>`);
-            {#$('textarea.commentfield').first().focus();#}
-            jQuery("textarea[name='post_content']").val("");
-        }
+                {#$('textarea.commentfield').first().focus();#}
+                jQuery("textarea[name='post_content']").val("");
+            }
 
         function onError(data) {
             alert("error");
         }
+        });
+
+
     </script>
     <!-- or even simpler -->
 
     <script>
+
         $('#aaaa').popover('toggle')
     </script>
 {% endblock %}

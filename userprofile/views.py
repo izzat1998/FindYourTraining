@@ -44,26 +44,8 @@ class UserFriends(View):
         return render(request, 'userprofile/user_friends.html', {})
 
 
-class PostSerializer(ModelSerializer):
-    class Meta:
-        model = Post
-        fields = ('id', 'body',)
 
 
-class CommentSerializer(ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = ('content', 'post')
-
-
-class CreatePost(CreateAPIView):
-    serializer_class = PostSerializer
-    queryset = Post.objects.all()
-
-    def perform_create(self, serializer):
-        instance = serializer.save()
-        instance.author = self.request.user.userprofile
-        instance.save()
 
 
 # class CreatePost(View):
@@ -74,15 +56,6 @@ class CreatePost(CreateAPIView):
 #         return HttpResponseRedirect(reverse('user_page', kwargs={'username': user.username}))
 #
 
-class CreateComment(CreateAPIView):
-    serializer_class = CommentSerializer
-    queryset = Comment.objects.all()
-
-    def perform_create(self, serializer):
-        instance = serializer.save()
-        instance.author = self.request.user.userprofile
-        instance.post = self.request.POST.get('post_id')
-        instance.save()
 
 
 class SendRequest(View):
