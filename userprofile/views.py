@@ -35,13 +35,19 @@ class UserPage(View):
         current_user = UserProfile.objects.get(user=request.user)
         posts = Post.objects.filter(author=current_user)
         friends = UserProfile.objects.all()
-        return render(request, 'userprofile/user_page.html', context={'user': current_user, 'posts': posts, 'friends': friends})
+        return render(request, 'userprofile/user_page.html',
+                      context={'user': current_user, 'posts': posts, 'friends': friends})
+
+
+class UserFriends(View):
+    def get(self, request, username):
+        return render(request, 'userprofile/user_friends.html', {})
 
 
 class PostSerializer(ModelSerializer):
     class Meta:
         model = Post
-        fields = ('id', 'body', )
+        fields = ('id', 'body',)
 
 
 class CommentSerializer(ModelSerializer):

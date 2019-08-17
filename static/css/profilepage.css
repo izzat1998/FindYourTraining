@@ -37,12 +37,18 @@ div.postfield div.button-postfield {
     font-size: 18px;
 }
 
+.sidelists > ul > li > a > i {
+    font-size: 20px;
+    padding-right: 10px;
+}
+
 .sidelists a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
-    font-size: 21px;
+    font-size: 19px;
     color: #818181;
     display: block;
+    text-transform: uppercase;
 }
 
 .online-user {
@@ -127,18 +133,18 @@ div.postfield div.button-postfield {
     }
 }
 
-div.card span {
+.side-bar div.card span {
     position: absolute;
     left: 15%;
     bottom: 15%;
     display: none;
 }
 
-div.card:hover span {
+.side-bar div.card:hover span {
     display: inline-block;
 }
 
-div.card span i.fa {
+.side-bar div.card span i.fa {
     font-size: 28px;
     color: #26b7e7;
 }
@@ -176,6 +182,7 @@ div.profile-page {
 
 .sidelists {
     padding: 10px;
+
 }
 
 .postfield {
@@ -207,7 +214,15 @@ div.postfield button.button-sub {
     border-radius: 4px;
 
 }
-
+.search-but .button-sub{
+    margin-right: 30px;
+}
+.search-but{
+   margin-top: 20px;
+    width: 100%;
+    height: auto;
+    text-align: right;
+}
 div.comfield img.card-img-top {
     width: 9% !important;
     margin-bottom: 10px;
@@ -234,7 +249,7 @@ div.comfield img.card-img-top:hover {
     justify-content: flex-end;
 }
 
-div.dropdown div.dropdown-menu {
+.profile-top div.dropdown div.dropdown-menu {
     transform: translate3d(-122px, 6px, 0px) !important;
 }
 
@@ -411,4 +426,35 @@ div.postfield > div.loading:before {
         -o-transform: rotate(360deg);
         transform: rotate(360deg);
     }
+}
+/*user friends*/
+.search-friends{
+    width: 100%;
+    height: auto;
+    background-color: #F9F9F9;
+    padding: 10px 20px;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+.search-friends .search-text{
+    font-weight: bold;
+    vertical-align: center;
+
+}
+.search-friends .icon-ser{
+    font-size: 50px;
+}
+.ser-fri .collapse.show>.card.card-body.form-col,
+.ser-fri .collapsing>.card.card-body.form-col
+{
+    border:none;
+    background-color: #F9F9F9;
+    border-top:1px solid #E5E5E5 ;
+    border-radius: 0;
+    padding: 20px 20px;
+}
+
+.ser-fri{
+    padding: 0px;
 }

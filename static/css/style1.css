@@ -26,40 +26,7 @@ html {
 
 }
 
-.navigation-bar ul.nav-left {
 
-    list-style: none;
-    text-align: center;
-    padding: 20px;
-}
-
-.navigation-bar ul.nav-right {
-    list-style: none;
-    text-align: center;
-    padding: 20px;
-}
-
-.navigation-bar ul.nav-right li {
-    display: inline-block;
-    right: 0;
-}
-
-.navigation-bar ul.nav-left li {
-    display: inline-block;
-    left: 0;
-}
-
-.navigation-bar ul li a {
-
-    text-transform: uppercase;
-    text-decoration: none;
-    letter-spacing: 0.30em;
-    display: block;
-    padding: 10px 16px;
-    position: relative;
-    color: #222;
-    font-size: 16px;
-}
 
 .banner {
     width: 100%;
@@ -69,27 +36,6 @@ html {
     background-repeat: no-repeat;
 }
 
-.navigation-bar ul li a:after {
-    background: none repeat scroll 0 0 transparent;
-    bottom: 0;
-    content: "";
-    height: 4px;
-    border-radius: 5px;
-    left: 50%;
-    position: absolute;
-    background: #ef5a1f;
-    transition: width 0.3s ease 0s, left 0.3s ease 0s;
-    width: 0;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-}
 
 .scrolltotop {
     background: #ffffff none repeat scroll 0 0;
@@ -267,8 +213,8 @@ h2 {
 
 .download-button:hover {
     background: white none repeat scroll 0 0;
-    border-color:#f9f9f9;
-    color:black;
+    border-color: #f9f9f9;
+    color: black;
 }
 
 .menu-nav {
@@ -409,6 +355,7 @@ p.contact-text {
     padding: 0 20px;
     color: #5F5F5F;
 }
+
 .navbar {
     margin-bottom: 0 !important;
     margin-top: 0px;

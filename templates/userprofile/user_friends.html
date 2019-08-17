@@ -1,0 +1,75 @@
+{% extends 'userprofile/base.html' %}
+{% block content %}
+    <div class="col-md-9 col-lg-9 col-sm-9 col-xs-9 ser-fri">
+        <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+           aria-controls="collapseExample">
+            <div class="search-friends">
+                <h3 class="search-text">Search for friends</h3>
+                <i class="fa fa-angle-right icon-ser"></i>
+
+            </div>
+        </a>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body form-col">
+                <div class="row">
+
+                    <div class="form-group col-md-4">
+                        <label for="name">Name</label>
+                        <input type="email" class="form-control" id="name" placeholder="Name">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="country">Country</label>
+                        <select class="selectpicker show-tick">
+                            <option>Mustard</option>
+                            <option>Ketchup</option>
+                            <option>Relish</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="city">City</label>
+                        <select class="selectpicker" id="city">
+                            <option>Mustard</option>
+                            <option>Ketchup</option>
+                            <option>Relish</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="search-but">
+                    <button type="submit" class="button-sub">Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+{% block script %}
+
+
+
+
+{% endblock %}

@@ -22,7 +22,7 @@ urlpatterns = [
 
     path('', Home.as_view(), name='home'),
     path('userprofile/',include('userprofile.urls')),
-    # path('sendrequest/<int:pk>',SendRequest.as_view(),name='send_friend_request'),
+
     path('admin/', admin.site.urls),
     path('accounts/',include('allauth.urls')),
 
