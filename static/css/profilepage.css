@@ -214,15 +214,34 @@ div.postfield button.button-sub {
     border-radius: 4px;
 
 }
-.search-but .button-sub{
+
+.collapse-com .commentbyuser {
+    width: 100%;
+    height: auto;
+    border-left: 2px solid #26b7e7;
+    display: block;
+    margin-bottom: 20px;
+}
+.collapse-com .commented{
+    width: 100%;
+    height: auto;
+
+}
+.collapse-com .comment-top{
+    display: flex;
+}
+
+.search-but .button-sub {
     margin-right: 30px;
 }
-.search-but{
-   margin-top: 20px;
+
+.search-but {
+    margin-top: 20px;
     width: 100%;
     height: auto;
     text-align: right;
 }
+
 div.comfield img.card-img-top {
     width: 9% !important;
     margin-bottom: 10px;
@@ -255,6 +274,7 @@ div.comfield img.card-img-top:hover {
 
 div.comfield p {
     font-weight: normal;
+    padding: 10px 10px;
 }
 
 div.comfield div.likesandcomment {
@@ -275,16 +295,26 @@ div.comfield div.likesandcomment {
 }
 
 .collapse-com {
+    display: block;
+
+
+}
+.collapse-com .commented p{
+    padding:10px 0;
+}
+.collapse-com .comfieldarea {
     display: flex;
+
 
 }
 
-.collapse-com > .card-img-top:hover {
+.comfieldarea > .card-img-top:hover {
     border: 0 !important;
 }
 
-div.collapse-com > img {
+div.comfieldarea > img {
     width: 5% !important;
+    margin: 5px 10px;
 
 }
 
@@ -427,34 +457,37 @@ div.postfield > div.loading:before {
         transform: rotate(360deg);
     }
 }
+
 /*user friends*/
-.search-friends{
+.search-friends {
     width: 100%;
     height: auto;
     background-color: #F9F9F9;
     padding: 10px 20px;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
 }
-.search-friends .search-text{
+
+.search-friends .search-text {
     font-weight: bold;
     vertical-align: center;
 
 }
-.search-friends .icon-ser{
+
+.search-friends .icon-ser {
     font-size: 50px;
 }
-.ser-fri .collapse.show>.card.card-body.form-col,
-.ser-fri .collapsing>.card.card-body.form-col
-{
-    border:none;
+
+.ser-fri .collapse.show > .card.card-body.form-col,
+.ser-fri .collapsing > .card.card-body.form-col {
+    border: none;
     background-color: #F9F9F9;
-    border-top:1px solid #E5E5E5 ;
+    border-top: 1px solid #E5E5E5;
     border-radius: 0;
     padding: 20px 20px;
 }
 
-.ser-fri{
+.ser-fri {
     padding: 0px;
 }

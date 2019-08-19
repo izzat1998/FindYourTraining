@@ -10,7 +10,7 @@ class Post(models.Model):
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
 
     class Meta:
-        ordering =['-date_pub', ]
+        ordering = ['-date_pub', ]
 
     def __str__(self):
         return self.body or ""
@@ -21,7 +21,7 @@ class Comment(models.Model):
     date_pub = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='comments',null=True,blank=True)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='comments', null=True, blank=True)
 
     class Meta:
         ordering = ['-date_pub', ]

@@ -20,7 +20,7 @@
                 <div class="form-em">
                     <div class="form-group">
                         <div class="col-sm-12">
-                                <textarea class="form-control " rows="3" name="post_content"
+                                <textarea class="form-control postarea" rows="3" name="post_content"
                                           placeholder="Enter your post"
                                           id="comment"></textarea>
                         </div>
@@ -42,7 +42,7 @@
                         <a href="#" class="profileside">
                             <img class="card-img-top "
                                  src="https://gastrotochka.com/img/profile_noimage.png"
-                                 alt="Edit photo"> <span>azizabonu</span> </a>
+                                 alt="Edit photo"> <span>{{ request.user.username }}</span> </a>
                         <div class="dropdown">
                             <a href="#" class="profilemenu " id="dropdownMenuButton"
                                data-toggle="dropdown"
@@ -73,16 +73,42 @@
                     </div>
                     <div class="collapse" id="collapseExample{{ post.id }}">
                         <div class="collapse-com">
-                            <img class="card-img-top"
-                                 src="https://gastrotochka.com/img/profile_noimage.png"
-                                 alt="azizabonu">
-                            <textarea class="commentfield" width="2%" rows="2" cols="50"
-                                      name="comment"
-                                      form="usrform" placeholder="enter your comment"
-                                      autofocus></textarea>
-                            <button id="texst{{ post.id }}" data-post-id="{{ post.id }}" class="class1">
-                                Comment
-                            </button>
+                            <div class="commentbyuser">
+                                <div class="comment-top">
+                                    <a href="#" class="profileside">
+                                        <img class="card-img-top "
+                                             src="https://gastrotochka.com/img/profile_noimage.png"
+                                             alt="Edit photo"> <span>{{ request.user.username }}</span> </a>
+                                    <div class="dropdown">
+                                        <a href="#" class="profilemenu " id="dropdownMenuButton"
+                                           data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false"><i
+                                                class="fa fa-ellipsis-h"
+                                                aria-hidden="true"></i></a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="commented">
+                                    <div class="row">
+                                        <div class="col-md-10 offset-md-1">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi, quam?</p>
+                                            <a href="">Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comfieldarea">
+                                <img class="card-img-top"
+                                     src="https://gastrotochka.com/img/profile_noimage.png"
+                                     alt="azizabonu">
+                                <textarea class="commentfield" width="2%" rows="2" cols="50"
+                                          name="comment" id="texst{{ post.id }}" data-post-id="{{ post.id }}"
+                                          form="usrform" placeholder="enter your comment"
+                                          autofocus></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,41 +148,27 @@
             fileUpload.click();
         })
     </script>
-
     <script>
         $(function () {
-            $(".class1").click(function (e) {
-                e.preventDefault();
-                console.log($(this).data("post-id"));
-
-                let formData = new FormData();
-                formData.append("post", $(this).data("post-id"));
-                formData.append("content", $(this).prev().val());
-                jQuery.ajax({
-                    url: '{% url 'create_comment' %}',
-                    method: "POST",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: onSuccess2,
-                    error: onError,
-                });
+            $('body').on('keypress', 'textarea.commentfield', function (e) {
+                var keycode = (e.keyCode ? e.keyCode : e.which);
+                if (keycode == '13') {
+                    e.preventDefault();
+                    let formData = new FormData();
+                    formData.append("post", $(this).data("post-id"));
+                    formData.append("content", $(this).prev().val());
+                    jQuery.ajax({
+                        url: '{% url 'create_comment' %}',
+                        method: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: onSuccess,
+                        error: onError,
+                    });
+                }
+                e.stopPropagation();
             });
-            {#function create_comment(event, post) {#}
-            {#    event.preventDefault();#}
-            {#    let formData = new FormData();#}
-            {#    formData.append("content", jQuery("textarea[name='comment']").val());#}
-            {#    formData.append("post", post);#}
-            {#    jQuery.ajax({#}
-            {#        url: '{% url 'create_comment' %}',#}
-            {#        method: "POST",#}
-            {#        data: formData,#}
-            {#        contentType: false,#}
-            {#        processData: false,#}
-            {#        success: onSuccess,#}
-            {#        error: onError,#}
-            {#    });#}
-
 
             jQuery(function () {
                     function sendAjax(event) {
@@ -179,7 +191,7 @@
                     });
 
 
-                    jQuery('textarea').keypress(function (event) {
+                    jQuery('textarea.postarea').keypress(function (event) {
 
                         var keycode = (event.keyCode ? event.keyCode : event.which);
                         if (keycode == '13') {
@@ -191,6 +203,7 @@
 
                 }
             );
+
             function onSuccess2(data) {
 
             }
@@ -242,9 +255,9 @@
                 jQuery("textarea[name='post_content']").val("");
             }
 
-        function onError(data) {
-            alert("error");
-        }
+            function onError(data) {
+                alert("error");
+            }
         });
 
 
