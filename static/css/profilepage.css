@@ -222,12 +222,15 @@ div.postfield button.button-sub {
     display: block;
     margin-bottom: 20px;
 }
-.collapse-com .commented{
+
+.collapse-com .commented {
     width: 100%;
     height: auto;
+    padding-bottom: 15px;
 
 }
-.collapse-com .comment-top{
+
+.collapse-com .comment-top {
     display: flex;
 }
 
@@ -299,13 +302,17 @@ div.comfield div.likesandcomment {
 
 
 }
-.collapse-com .commented p{
-    padding:10px 0;
+
+.collapse-com .commented p {
+    padding: 10px 0;
 }
-.collapse-com .comfieldarea {
+
+.comfieldarea {
     display: flex;
+}
 
-
+.reply-published .comfieldarea {
+    display: block;
 }
 
 .comfieldarea > .card-img-top:hover {
@@ -490,4 +497,32 @@ div.postfield > div.loading:before {
 
 .ser-fri {
     padding: 0px;
+}
+
+.commented .reply-published {
+    width: 100%;
+    height: auto;
+    margin-left: 25px;
+}
+
+.reply-published > .comfieldarea > img.card-img-top {
+    width: 7% !important;
+    margin-left: 17px;
+    margin-bottom: 20px;
+}
+
+.reply-result {
+    display: flex;
+    padding-left: 0px;
+
+}
+
+.reply-published {
+    border-left: 1px solid #E5E5E5;
+    margin-left: 50px;
+    margin-bottom: 20px;
+}
+
+.reply-published > .reply-result> a.profileside > img.card-img-top{
+    width: 7% !important;
 }
