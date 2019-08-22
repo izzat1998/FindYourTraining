@@ -51,7 +51,7 @@
                                     aria-hidden="true"></i></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item post-delete-bn" href="#" data-toggle="modal"
-                                   data-post-id="{{ post.id }}"
+                                   data-post-id="{{ post.id }}" data-post-delete-url="{% url 'post-delete' post.id %}"
                                    data-target="#exampleModalDelete">Delete</a>
                             </div>
                         </div>
@@ -252,7 +252,7 @@
                     <button type="button" class="btn btn-danger btn-delete-modal-no"
                             data-dismiss="modal">No
                     </button>
-                    <button type="button" class="btn btn-success btn-delete-modal-yes">Yes
+                    <button type="button" class="btn btn-success btn-delete-modal-yes" data-post-delete-url="">Yes
                     </button>
 
                 </div>
@@ -267,6 +267,7 @@
 
             $('.post-delete-bn').click(function (e) {
                 $(".btn-delete-modal-yes").attr('data-post-id', $(this).data('post-id'));
+                $(".btn-delete-modal-yes").attr('data-post-delete-url', $(this).data('post-delete-url'));
             });
             $('.comment-delete-btn').click(function (e) {
                 $(".btn-delete-modal-comment-yes").attr('data-comment-id', $(this).data('comment-id'));
@@ -309,7 +310,18 @@
 
             $(document).on("click", ".btn-delete-modal-yes", function (e) {
                 let postID = $(this).attr("data-post-id");
+                let postDeleteUrl = $(this).attr("data-post-delete-url");
                 $('div.posts-div').find(`div[data-post-id="${postID}"]`).remove();
+                $.ajax({
+                   url:postDeleteUrl,
+                   method:'DELETE',
+                   success: function (data) {
+
+                   },
+                    error: function (data) {
+
+                    },
+                });
                 $('#exampleModalDelete').modal('hide');
             });
 
@@ -381,6 +393,7 @@
             );
 
             function createComment(data) {
+                // TODO add attribute data-post-delete-url;
                 $(".comments-div").append(`
                 <div class="commentbyuser" data-comment-id="${data.post}">
                     <div class="comment-top">
