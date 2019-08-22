@@ -170,7 +170,9 @@ div.card {
     align-items: center;
     padding: 30px 0;
 }
-
+div.form-col {
+    align-items: normal;
+}
 .bodycard {
     padding: 5px;
     border-bottom: 1px solid #e5e5e5;
@@ -236,12 +238,13 @@ div.postfield button.button-sub {
 
 .search-but .button-sub {
     margin-right: 30px;
+    padding: 10px 20px;
+
 }
+
 
 .search-but {
     margin-top: 20px;
-    width: 100%;
-    height: auto;
     text-align: right;
 }
 

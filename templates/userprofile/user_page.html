@@ -335,7 +335,7 @@
                         contentType: false,
                         processData: false,
                         success: createComment,
-                        error: createComment,
+                        error: onError,
                     });
                 }
                 e.stopPropagation();
@@ -528,7 +528,7 @@
             }
 
             function onError(data) {
-                alert("error");
+                alert("sssss");
             }
         });
 
