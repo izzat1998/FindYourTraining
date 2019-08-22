@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView
 
 from api.serializers import PostSerializer, CommentSerializer
 from post.models import Post, Comment
@@ -16,6 +16,13 @@ class CreatePost(CreateAPIView):
         instance = serializer.save()
         instance.author = self.request.user.userprofile
         instance.save()
+
+
+class DestroyPost(DestroyAPIView):
+    lookup_field = 'pk'
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+
 
 
 class CreateComment(CreateAPIView):
