@@ -91,7 +91,8 @@
                                                         class="fa fa-ellipsis-h"
                                                         aria-hidden="true"></i></a>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item" href="#">Edit</a>
+                                                    <a class="dropdown-item" href="#"  data-toggle="modal"
+                                                           data-target="#ModalCommentEdit">Edit</a>
                                                     <a class="dropdown-item comment-delete-btn" href="#"
                                                        data-toggle="modal"
                                                        data-target="#ModalCommentDelete"
@@ -132,7 +133,8 @@
                                                             aria-hidden="true"></i></a>
                                                     <div class="dropdown-menu"
                                                          aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#">Edit</a>
+                                                        <a class="dropdown-item" href="#" data-toggle="modal"
+                                                           data-target="#ModalReplyEdit">Edit</a>
                                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                                            data-target="#ModalReplyDelete">Delete</a>
                                                     </div>
@@ -181,6 +183,56 @@
         <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3"></div>
     </div>
 
+  <!-- EDIT reply -->
+    <div class="modal fade" id="ModalReplyEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Reply</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to edit your reply?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-edit-modal-comment-no"
+                            data-dismiss="modal">No
+                    </button>
+                    <button type="button" class="btn btn-success btn-edit-modal-comment-yes">Yes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- EDIT COMMENT -->
+    <div class="modal fade" id="ModalCommentEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Comment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to edit your comment?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-edit-modal-comment-no"
+                            data-dismiss="modal">No
+                    </button>
+                    <button type="button" class="btn btn-success btn-edit-modal-comment-yes">Yes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {#   Delete reply#}
     <div class="modal fade" id="ModalReplyDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -313,11 +365,11 @@
                 let postDeleteUrl = $(this).attr("data-post-delete-url");
                 $('div.posts-div').find(`div[data-post-id="${postID}"]`).remove();
                 $.ajax({
-                   url:postDeleteUrl,
-                   method:'DELETE',
-                   success: function (data) {
+                    url: postDeleteUrl,
+                    method: 'DELETE',
+                    success: function (data) {
 
-                   },
+                    },
                     error: function (data) {
 
                     },
@@ -393,7 +445,7 @@
             );
 
             function createComment(data) {
-                // TODO add attribute data-post-delete-url;
+                // TODO add attribute data-post-delete-url
                 $(".comments-div").append(`
                 <div class="commentbyuser" data-comment-id="${data.post}">
                     <div class="comment-top">

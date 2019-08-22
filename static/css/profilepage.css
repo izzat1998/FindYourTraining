@@ -170,9 +170,11 @@ div.card {
     align-items: center;
     padding: 30px 0;
 }
+
 div.form-col {
     align-items: normal;
 }
+
 .bodycard {
     padding: 5px;
     border-bottom: 1px solid #e5e5e5;
@@ -526,7 +528,14 @@ div.postfield > div.loading:before {
     width: 7% !important;
 }
 
-.btn-delete-modal-yes, .btn-delete-modal-no, .btn-delete-modal-comment-yes, .btn-delete-modal-comment-no, .btn-delete-modal-reply-no, .btn-delete-modal-reply-yes{
+.btn-delete-modal-yes,
+.btn-delete-modal-no,
+.btn-delete-modal-comment-yes,
+.btn-delete-modal-comment-no,
+.btn-delete-modal-reply-no,
+.btn-delete-modal-reply-yes,
+.btn-edit-modal-comment-yes,
+.btn-edit-modal-comment-no{
     padding: 0.375rem 3.75rem !important;
 }
 
