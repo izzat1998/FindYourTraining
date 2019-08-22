@@ -28,3 +28,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+class Reply(models.Model):
+    content = models.TextField(blank=True,null=True)
+    date_pub = models.DateTimeField(auto_now_add=True)
+    date_update = models.DateTimeField(auto_now=True)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, blank=True)
