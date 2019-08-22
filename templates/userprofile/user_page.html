@@ -171,7 +171,7 @@
                                      src="https://gastrotochka.com/img/profile_noimage.png"
                                      alt="azizabonu">
                                 <textarea class="form-control commentfield " rows="1" cols="60" name="post_content"
-                                          placeholder="Enter your post"
+                                          placeholder="Enter your post" data-post10-id="{{ post.id }}"
                                           id="replyField"></textarea>
                             </div>
                         </div>
@@ -326,8 +326,9 @@
                 if (keycode == '13') {
                     e.preventDefault();
                     let formData = new FormData();
-                    formData.append("post", $(this).data("post-id"));
-                    formData.append("content", $(this).prev().val());
+                    formData.append("post", $(this).attr("data-post10-id"));
+                    formData.append("content", $(this).val());
+                    console.log($(this).val());
                     jQuery.ajax({
                         url: '{% url 'create_comment' %}',
                         method: "POST",

@@ -6,6 +6,7 @@ from post.models import Post
 
 
 class PostDelete(View):
-    def post(self,request,pk):
-        post=Post.objects.get(pk=pk)
+    def get(self,request,*args,**kwargs):
+        print(self.kwargs['id'])
+        post = Post.objects.get(pk=self.kwargs['id'])
         post.delete()
