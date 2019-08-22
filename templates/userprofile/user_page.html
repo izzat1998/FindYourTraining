@@ -327,6 +327,7 @@
                     let formData = new FormData();
                     formData.append("post", $(this).attr("data-post10-id"));
                     formData.append("content", $(this).val());
+                    $(this).val("");
                     console.log($(this).val());
                     jQuery.ajax({
                         url: '{% url 'create_comment' %}',
@@ -381,12 +382,12 @@
 
             function createComment(data) {
                 $(".comments-div").append(`
-                <div class="commentbyuser" data-comment-id="fdgdfgfd">
+                <div class="commentbyuser" data-comment-id="${data.post}">
                     <div class="comment-top">
                         <a href="#" class="profileside">
                             <img class="card-img-top "
                                  src="https://gastrotochka.com/img/profile_noimage.png"
-                                 alt="Edit photo"> <span>sdfsdfsdf</span>
+                                 alt="Edit photo"> <span>{{ request.user.username }}</span>
                         </a>
                         <div class="dropdown">
                             <a href="#" class="profilemenu " id="dropdownMenuButton"
@@ -399,7 +400,7 @@
                                 <a class="dropdown-item comment-delete-btn" href="#"
                                    data-toggle="modal"
                                    data-target="#ModalCommentDelete"
-                                   data-comment-id="sdfsdfsdf">Delete</a>
+                                   data-comment-id="${data.post}">Delete</a>
                             </div>
 
                         </div>
@@ -407,13 +408,13 @@
                     <div class="commented">
                         <div class="row">
                             <div class="col-md-10 offset-md-1">
-                                <p>szdsdzdsf</p>
+                                <p>${data.content}</p>
                                 <div class="rep-com">
                                     <a data-toggle="collapse"
-                                       href="#collapseExampleReplyfsdkjfsdfnkosdjfhnsd"
+                                       href="#collapseExampleReply${data.id}"
                                        role="button"
                                        aria-expanded="false"
-                                       aria-controls="collapseExampleReplysdfsdfsdfdsfdsfdsfsdfds"
+                                       aria-controls="collapseExampleReply${data.content}"
                                        class="reply-com">Reply</a>
                                 </div>
                             </div>
