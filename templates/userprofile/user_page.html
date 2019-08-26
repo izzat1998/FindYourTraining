@@ -400,6 +400,7 @@
 
             $(document).on("click", ".btn-delete-modal-yes", function (e) {
                 let postDeleteUrl = $(this).attr("data-post-delete-url");
+                console.log(postDeleteUrl)
                 $('div.posts-div').find(`div[data-post-delete-url="${postDeleteUrl}"]`).remove();
                 $.ajax({
                     url: postDeleteUrl,
@@ -408,7 +409,7 @@
 
                     },
                     error: function (data) {
-
+                            alert("error")
                     },
                 });
                 $('#exampleModalDelete').modal('hide');

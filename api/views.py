@@ -49,6 +49,7 @@ class CreatePost(CreateAPIView):
 class DestroyPost(DestroyAPIView):
     lookup_field = 'pk'
     serializer_class = PostSerializer
+    queryset = Post.objects.all()
 
 
 class CreateComment(CreateAPIView):
@@ -64,6 +65,7 @@ class CreateComment(CreateAPIView):
 class DestroyComment(DestroyAPIView):
     lookup_field = 'pk'
     serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
 
 
 class CreateReply(CreateAPIView):
@@ -79,3 +81,4 @@ class CreateReply(CreateAPIView):
 class DestroyReply(DestroyAPIView):
     lookup_field = 'pk'
     serializer_class = ReplySerializer
+    queryset = Reply.objects.all()
