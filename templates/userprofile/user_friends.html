@@ -9,56 +9,62 @@
 
             </div>
         </a>
-        <div class="collapse {% if vars.first_name %} show{% endif %}"   id="collapseExample">
+        <div class="collapse {% if vars.first_name %} show{% endif %}" id="collapseExample">
             <div class="card card-body form-col">
                 <div class="row">
-
                     <form method="get">
-                        <div class="form-group col-md-4">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control"  id="name" name="first_name" placeholder="Name" value="{{ vars.first_name }}">
-                        </div>
+                        <div class="form-row align-items-center">
+                            <div class="form-group col-md-4 ">
+                                <div class="col-auto my-1">
+                                    <label for="name" class="mr-sm-2">Name</label>
+                                    <input type="text" class="form-control" id="name" name="first_name"
+                                           placeholder="Name"
+                                           value="{{ vars.first_name }}">
+                                </div>
+                            </div>
 
-                        <div class="col-md-4">
-                            <label for="country">Country</label>
-                            <select class="selectpicker show-tick">
-                                <option>Mustard</option>
-                                <option>Ketchup</option>
-                                <option>Relish</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="country">City</label>
-                            <select class="selectpicker show-tick">
-                                <option>Mustard</option>
-                                <option>Ketchup</option>
-                                <option>Relish</option>
-                            </select>
-                        </div>
-                        <input type="submit" class="button-sub" value="Submit">
+                            <div class="col-md-4">
+                                <div class="col-auto my-1">
+                                    <label class="mr-sm-2" for="inlineFormCustomSelect">Preference</label>
+                                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                        <option selected>Choose...</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-auto my-1">
+                                    <label class="mr-sm-2" for="inlineFormCustomSelect">Preference</label>
+                                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                        <option selected>Choose...</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-auto"></div>
+                            <div class="search-but">
+                                <input type="submit" class="button-sub" value="Submit">
+                            </div>
                     </form>
-
-                </div>
-                <div class="search-but">
-                    <button type="submit" class="button-sub">Submit
-                    </button>
                 </div>
             </div>
+
         </div>
-        <div class="row">
-            {% for user in users %}
-                <div class="col-md-6">
-                    <div class="userProfileCard">
-                        <div class="profile-top">
-                            <a href="#" class="profileside">
-                                <img class="card-img-top "
-                                     src="https://gastrotochka.com/img/profile_noimage.png"
-                                     alt="Edit photo"> <span>{{ user.name }}</span> </a>
-                        </div>
-                    </div>
+
+    </div>
+    <div class="row">
+        {% for user in users %}
+            <div class="col-md-6">
+                <div class="userProfileCard">
+
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
+    </div>
     </div>
 
 
