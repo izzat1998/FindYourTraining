@@ -1,11 +1,40 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework.generics import CreateAPIView, DestroyAPIView
+from rest_framework import generics
+from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, RetrieveAPIView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from api.serializers import PostSerializer, CommentSerializer, ReplySerializer
+from api.serializers import PostSerializer, CommentSerializer, ReplySerializer, UserProfileSerializer
 from post.models import Post, Comment, Reply
 from userprofile.models import UserProfile
+
+
+class UserProfileGet(ListAPIView):
+    serializer_class = UserProfileSerializer
+
+    def get_queryset(self):
+
+        qs = UserProfile.objects.all()
+        query = self.request.GET.get('q')
+        print(query)
+        if query is not None:
+            qs = UserProfile.objects.filter(name__icontains=query)
+            print(qs)
+
+        return qs
+
+
+class UserProfileDetail(APIView):
+    lookup_field = 'id'
+    serializer_class = UserProfileSerializer
+    print('a')
+    def get(self, request, id):
+        user = UserProfile.objects.get(id=id)
+        print(user)
+        user_s = UserProfileSerializer(user)
+        return Response(user_s.data)
 
 
 class CreatePost(CreateAPIView):
@@ -20,7 +49,7 @@ class CreatePost(CreateAPIView):
 
 class DestroyPost(DestroyAPIView):
     lookup_field = 'pk'
-    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
 
 class CreateComment(CreateAPIView):
@@ -35,11 +64,11 @@ class CreateComment(CreateAPIView):
 
 class DestroyComment(DestroyAPIView):
     lookup_field = 'pk'
-    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
 
 
 class CreateReply(CreateAPIView):
-    serializer_class = ReplySerializer
+    serializer_class = ReplySerializer()
     queryset = Reply.objects.all()
 
     def perform_create(self, serializer):
@@ -50,5 +79,4 @@ class CreateReply(CreateAPIView):
 
 class DestroyReply(DestroyAPIView):
     lookup_field = 'pk'
-    queryset = Reply.objects.all()
-
+    serializer_class = ReplySerializer
