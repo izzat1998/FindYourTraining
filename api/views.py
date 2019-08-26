@@ -29,7 +29,7 @@ class UserProfileGet(ListAPIView):
 class UserProfileDetail(APIView):
     lookup_field = 'id'
     serializer_class = UserProfileSerializer
-
+    print('a')
     def get(self, request, id):
         user = UserProfile.objects.get(id=id)
         print(user)
