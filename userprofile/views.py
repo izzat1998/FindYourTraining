@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView
+from django.views.generic.list import ListView
 from requests import Response
 from rest_framework.generics import CreateAPIView
 from rest_framework.serializers import ModelSerializer
@@ -39,13 +40,32 @@ class UserPage(View):
                       context={'user': current_user, 'posts': posts, 'friends': friends})
 
 
-class UserFriends(View):
-    def get(self, request, username):
-        return render(request, 'userprofile/user_friends.html', {})
+# class UserFriends(View):
+#     def get(self, request, username):
+#         first_name = request.GET.get('first_name')
+#         country = request.GET.get('country')
+#         print(first_name, country)
+#         return render(request, 'userprofile/user_friends.html', context={'username': username})
 
 
+class UserFriends(ListView):
+    template_name = 'userprofile/user_friends.html'
+    context_object_name = 'users'
 
+    def get_queryset(self):
+        print("1")
+        qs = UserProfile.objects.filter()
+        first_name = self.request.GET.get('first_name')
+        country = self.request.GET.get('country')
+        print(first_name, country)
+        if first_name:
+            qs = qs.filter(name=first_name)
+        return qs
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["vars"] = self.request.GET
+        return context
 
 
 # class CreatePost(View):
@@ -55,7 +75,6 @@ class UserFriends(View):
 #         post = Post.objects.create(body=content, author=current_user)
 #         return HttpResponseRedirect(reverse('user_page', kwargs={'username': user.username}))
 #
-
 
 
 class SendRequest(View):
