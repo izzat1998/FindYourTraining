@@ -16,5 +16,5 @@ urlpatterns = [
     path('reply/create/', CreateReply.as_view(), name='create_reply'),
     path('post/<int:pk>/delete/', DestroyPost.as_view(), name='post-delete'),
     path('comment/<int:pk>/delete/', DestroyComment.as_view(), name='comment-delete'),
-    path('reply/<int:pk>/delete/', DestroyReply.as_view(), name='post-delete'),
+    path('reply/<int:pk>/delete/', DestroyReply.as_view(), name='reply-delete'),
 ]

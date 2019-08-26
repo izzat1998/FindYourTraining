@@ -522,12 +522,16 @@ div.postfield > div.loading:before {
     border-left: 1px solid #E5E5E5;
     margin-left: 50px;
     margin-bottom: 20px;
+
+}
+.replyArea>.comfieldarea>img.card-img-top{
+     width: 7% !important;
 }
 
-.reply-published > .reply-result > a.profileside > img.card-img-top {
-    width: 7% !important;
+.replyArea .comfieldarea{
+    margin-left: 50px;
+    margin-bottom: 20px;
 }
-
 .btn-delete-modal-yes,
 .btn-delete-modal-no,
 .btn-delete-modal-comment-yes,

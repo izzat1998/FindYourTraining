@@ -1,21 +1,37 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from post.models import Post, Comment, Reply
 
 
 class PostSerializer(ModelSerializer):
+    delete_url = SerializerMethodField('get_delete_url')
+
     class Meta:
         model = Post
-        fields = ('id', 'body',)
+        fields = ('id', 'body', 'delete_url')
+
+
+    def get_delete_url(self, obj):
+        return obj.get_delete_url()
 
 
 class CommentSerializer(ModelSerializer):
+    delete_url = SerializerMethodField('get_delete_url')
+
     class Meta:
         model = Comment
-        fields = ('content', 'post',)
+        fields = ('content', 'post', 'delete_url')
+
+    def get_delete_url(self, obj):
+        return obj.get_delete_url()
 
 
 class ReplySerializer(ModelSerializer):
+    delete_url = SerializerMethodField('get_delete_url')
+
     class Meta:
         model = Reply
-        fields = ('content', 'comment',)
+        fields = ('id', 'content', 'comment', 'delete_url')
+
+    def get_delete_url(self, obj):
+        return obj.get_delete_url()

@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework.generics import CreateAPIView, DestroyAPIView
 
 from api.serializers import PostSerializer, CommentSerializer, ReplySerializer
-from post.models import Post, Comment
+from post.models import Post, Comment, Reply
 from userprofile.models import UserProfile
 
 
@@ -20,7 +20,7 @@ class CreatePost(CreateAPIView):
 
 class DestroyPost(DestroyAPIView):
     lookup_field = 'pk'
-    serializer_class = PostSerializer
+    queryset = Post.objects.all()
 
 
 class CreateComment(CreateAPIView):
@@ -32,14 +32,15 @@ class CreateComment(CreateAPIView):
         instance.author = self.request.user.userprofile
         instance.save()
 
+
 class DestroyComment(DestroyAPIView):
     lookup_field = 'pk'
-    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
 
 
 class CreateReply(CreateAPIView):
-    serializer_class = ReplySerializer()
-    queryset = ReplySerializer.objects.all()
+    serializer_class = ReplySerializer
+    queryset = Reply.objects.all()
 
     def perform_create(self, serializer):
         instance = serializer.save()
@@ -49,4 +50,5 @@ class CreateReply(CreateAPIView):
 
 class DestroyReply(DestroyAPIView):
     lookup_field = 'pk'
-    serializer_class = ReplySerializer
+    queryset = Reply.objects.all()
+

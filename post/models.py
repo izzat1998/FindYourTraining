@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from userprofile.models import UserProfile
 
@@ -16,6 +17,10 @@ class Post(models.Model):
         return self.body or ""
 
 
+    def get_delete_url(self) -> str:
+        return reverse("post-delete", kwargs={'pk': self.id})
+
+
 class Comment(models.Model):
     content = models.TextField(blank=True, null=True)
     date_pub = models.DateTimeField(auto_now_add=True)
@@ -29,9 +34,19 @@ class Comment(models.Model):
     def __str__(self):
         return self.content
 
+    def get_delete_url(self) -> str:
+        return reverse("comment-delete", kwargs={'pk': self.id})
+
+
 class Reply(models.Model):
-    content = models.TextField(blank=True,null=True)
+    content = models.TextField(blank=True, null=True)
     date_pub = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return self.content
+
+    def get_delete_url(self) -> str:
+        return reverse("reply-delete", kwargs={'pk': self.id})

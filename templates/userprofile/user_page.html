@@ -22,7 +22,7 @@
                         <div class="col-sm-12">
                                 <textarea class="form-control postarea" rows="3" name="post_content"
                                           placeholder="Enter your post"
-                                          id="comment"></textarea>
+                                          id="post_content"></textarea>
                         </div>
                     </div>
                 </div>
@@ -31,13 +31,13 @@
                             data-url="{% url 'create_post' %}">Submit
                     </button>
                 </div>
-                <div class="loading" style="display: none">Loading&#8230;</div>
+                <div class="loading" style="display: none;">Loading&#8230;</div>
             </div>
         </form>
         {#  post comment#}
         <div class="posts-div">
             {% for post in posts %}
-                <div class="postfield comfield" data-post-id="{{ post.id }}">
+                <div class="postfield comfield" data-post-delete-url="{% url 'post-delete' post.id %}">
                     <div class="profile-top">
                         <a href="#" class="profileside">
                             <img class="card-img-top "
@@ -77,91 +77,111 @@
                         <div class="collapse-com">
                             <div class="comments-div">
                                 {% for comment in post.comment_set.all %}
-                                    <div class="commentbyuser" data-comment-id="{{ comment.id }}">
-                                        <div class="comment-top">
-                                            <a href="#" class="profileside">
-                                                <img class="card-img-top "
-                                                     src="https://gastrotochka.com/img/profile_noimage.png"
-                                                     alt="Edit photo"> <span>{{ comment.author.user.username }}</span>
-                                            </a>
-                                            <div class="dropdown">
-                                                <a href="#" class="profilemenu " id="dropdownMenuButton"
-                                                   data-toggle="dropdown"
-                                                   aria-haspopup="true" aria-expanded="false"><i
-                                                        class="fa fa-ellipsis-h"
-                                                        aria-hidden="true"></i></a>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item" href="#"  data-toggle="modal"
-                                                           data-target="#ModalCommentEdit">Edit</a>
-                                                    <a class="dropdown-item comment-delete-btn" href="#"
-                                                       data-toggle="modal"
-                                                       data-target="#ModalCommentDelete"
-                                                       data-comment-id="{{ comment.id }}">Delete</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="commented">
-                                            <div class="row">
-                                                <div class="col-md-10 offset-md-1">
-                                                    <p>{{ comment.content }}</p>
-                                                    <div class="rep-com">
-                                                        <a data-toggle="collapse"
-                                                           href="#collapseExampleReply{{ comment.id }}"
-                                                           role="button"
-                                                           aria-expanded="false"
-                                                           aria-controls="collapseExampleReply{{ comment.id }}"
-                                                           class="reply-com">Reply</a>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="collapse" id="collapseExampleReply{{ comment.id }}">
-                                        <div class="reply-published">
-                                            <div class="reply-result">
+                                    <div class="commentAndReply"
+                                         data-comment-delete-url="{% url 'comment-delete' comment.id %}">
+                                        <div class="commentbyuser">
+                                            <div class="comment-top">
                                                 <a href="#" class="profileside">
                                                     <img class="card-img-top "
                                                          src="https://gastrotochka.com/img/profile_noimage.png"
                                                          alt="Edit photo">
-                                                    <span>{{ comment.author.user.username }}</span> </a>
+                                                    <span>{{ comment.author.user.username }}</span>
+                                                </a>
                                                 <div class="dropdown">
                                                     <a href="#" class="profilemenu " id="dropdownMenuButton"
                                                        data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false"><i
                                                             class="fa fa-ellipsis-h"
                                                             aria-hidden="true"></i></a>
-                                                    <div class="dropdown-menu"
-                                                         aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                           data-target="#ModalReplyEdit">Edit</a>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                           data-target="#ModalReplyDelete">Delete</a>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item edit-button" href="#"
+                                                           data-toggle="modal"
+                                                           data-target="#ModalCommentEdit">Edit</a>
+                                                        <a class="dropdown-item comment-delete-btn" href="#"
+                                                           data-toggle="modal"
+                                                           data-target="#ModalCommentDelete"
+                                                           data-comment-delete-url="{% url 'comment-delete' comment.id %}">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="commented">
                                                 <div class="row">
                                                     <div class="col-md-10 offset-md-1">
-                                                        <p>Lorem ipsum dolor sit amet.</p>
+                                                        <p>{{ comment.content }}</p>
                                                         <div class="rep-com">
-                                                            <a data-toggle="collapse" href="#collapseExample2"
+                                                            <a data-toggle="collapse"
+                                                               href="#collapseExampleReply{{ comment.id }}"
                                                                role="button"
-                                                               aria-expanded="false" aria-controls="collapseExample2"
+                                                               aria-expanded="false"
+                                                               aria-controls="collapseExampleReply{{ comment.id }}"
                                                                class="reply-com">Reply</a>
                                                         </div>
                                                     </div>
 
                                                 </div>
                                             </div>
-                                            <div class="comfieldarea">
-                                                <img class="card-img-top"
-                                                     src="https://gastrotochka.com/img/profile_noimage.png"
-                                                     alt="azizabonu">
-                                                <textarea class="replyField" rows="1" cols="40"
-                                                          name="comment"
-                                                          form="usrform" placeholder="enter your comment"
-                                                          autofocus></textarea>
+                                        </div>
+                                        <div class="collapse" id="collapseExampleReply{{ comment.id }}">
+                                            {#   reply area#}
+                                            <div class="replyArea">
+                                                <div class="replies-div">
+                                                    {% for reply in comment.reply_set.all %}
+                                                        <div class="reply-published"
+                                                             data-reply-delete-url="{% url 'reply-delete' reply.id %}">
+                                                            <div class="reply-result">
+                                                                <a href="#" class="profileside">
+                                                                    <img class="card-img-top "
+                                                                         src="https://gastrotochka.com/img/profile_noimage.png"
+                                                                         alt="Edit photo">
+                                                                    <span>{{ comment.author.user.username }}</span> </a>
+                                                                <div class="dropdown">
+                                                                    <a href="#" class="profilemenu "
+                                                                       id="dropdownMenuButton"
+                                                                       data-toggle="dropdown"
+                                                                       aria-haspopup="true" aria-expanded="false"><i
+                                                                            class="fa fa-ellipsis-h"
+                                                                            aria-hidden="true"></i></a>
+                                                                    <div class="dropdown-menu"
+                                                                         aria-labelledby="dropdownMenuButton">
+                                                                        <a class="dropdown-item" href="#"
+                                                                           data-toggle="modal"
+                                                                           data-target="#ModalReplyEdit">Edit</a>
+                                                                        <a class="dropdown-item reply-delete-btn"
+                                                                           href="#"
+                                                                           data-toggle="modal"
+                                                                           data-target="#ModalReplyDelete"
+                                                                           data-reply-delete-url="{% url 'reply-delete' reply.id %}">Delete</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="commented">
+                                                                <div class="row">
+                                                                    <div class="col-md-10 offset-md-1">
+                                                                        <p>{{ reply.content }}</p>
+                                                                        <div class="rep-com">
+                                                                            <a data-toggle="collapse"
+                                                                               href="#collapseExample2"
+                                                                               role="button"
+                                                                               aria-expanded="false"
+                                                                               aria-controls="collapseExample2"
+                                                                               class="reply-com">Reply</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                                <div class="comfieldarea">
+                                                    <img class="card-img-top"
+                                                         src="https://gastrotochka.com/img/profile_noimage.png"
+                                                         alt="azizabonu">
+                                                    <textarea class="replyField" rows="1" cols="40"
+                                                              name="reply_content" data-comment10-id="{{ comment.id }}"
+                                                              form="usrform" placeholder="enter your reply"
+                                                              autofocus></textarea>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -171,9 +191,9 @@
                                 <img class="card-img-top"
                                      src="https://gastrotochka.com/img/profile_noimage.png"
                                      alt="azizabonu">
-                                <textarea class="form-control commentfield " rows="1" cols="60" name="post_content"
+                                <textarea class="form-control commentfield " rows="1" cols="60" name="comment_content"
                                           placeholder="Enter your post" data-post10-id="{{ post.id }}"
-                                          id="replyField"></textarea>
+                                          id="comment_content"></textarea>
                             </div>
                         </div>
                     </div>
@@ -183,7 +203,7 @@
         <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3"></div>
     </div>
 
-  <!-- EDIT reply -->
+    <!-- EDIT reply -->
     <div class="modal fade" id="ModalReplyEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -195,19 +215,19 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to edit your reply?
+                    <textarea class="form-control commentfield " rows="1" cols="60" name="edit_content"
+                              id="editField" autofocus="autofocus"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-edit-modal-comment-no"
                             data-dismiss="modal">No
                     </button>
-                    <button type="button" class="btn btn-success btn-edit-modal-comment-yes">Yes
+                    <button type="button" class="btn btn-success btn-edit-modal-comment-yes">Save
                     </button>
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- EDIT COMMENT -->
     <div class="modal fade" id="ModalCommentEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -221,7 +241,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to edit your comment?
+                    <textarea class="form-control commentfield " rows="1" cols="60" name="edit_content"
+                              id="editField" autofocus="autofocus"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-edit-modal-comment-no"
@@ -317,17 +338,34 @@
 
         $(function () {
 
-            $('.post-delete-bn').click(function (e) {
+            $(document).on('click', '.post-delete-bn', function (e) {
                 $(".btn-delete-modal-yes").attr('data-post-id', $(this).data('post-id'));
-                $(".btn-delete-modal-yes").attr('data-post-delete-url', $(this).data('post-delete-url'));
+                $(".btn-delete-modal-yes").attr('data-post-delete-url', $(this).attr('data-post-delete-url'));
+
             });
-            $('.comment-delete-btn').click(function (e) {
-                $(".btn-delete-modal-comment-yes").attr('data-comment-id', $(this).data('comment-id'));
+            $(document).on('click', '.comment-delete-btn', function (e) {
+                console.log($(this).attr('data-comment-delete-url'));
+                $(".btn-delete-modal-comment-yes").attr('data-comment-delete-url', $(this).attr('data-comment-delete-url'));
             });
-            $(document).on('click', '.class', function (event) {
+            $("body").on("click", '.reply-delete-btn', function (e) {
+
+                $(".btn-delete-modal-reply-yes").attr('data-reply-delete-url', $(this).attr('data-reply-delete-url'));
+            });
+
+            $(document).on('click', '.class', function (e) {
                 let a = $(this).parent().next().find('textarea.commentfield');
                 a.focus();
             });
+            $(document).on('click', '.edit-button', function (event) {
+                let a = $("#editField");
+                console.log(a);
+
+            })
+            $('.edit-button').click(function (){
+                $('#ModalCommentEdit').find('editField')
+                {$(this).val(p);
+                }
+            })
         })
     </script>
     <script>
@@ -361,9 +399,8 @@
         $(function () {
 
             $(document).on("click", ".btn-delete-modal-yes", function (e) {
-                let postID = $(this).attr("data-post-id");
                 let postDeleteUrl = $(this).attr("data-post-delete-url");
-                $('div.posts-div').find(`div[data-post-id="${postID}"]`).remove();
+                $('div.posts-div').find(`div[data-post-delete-url="${postDeleteUrl}"]`).remove();
                 $.ajax({
                     url: postDeleteUrl,
                     method: 'DELETE',
@@ -376,11 +413,37 @@
                 });
                 $('#exampleModalDelete').modal('hide');
             });
+            $(document).on("click", ".btn-delete-modal-reply-yes", function (e) {
+                let replyDeleteUrl = $(this).attr('data-reply-delete-url');
+                $(document).find(`div[data-reply-delete-url="${replyDeleteUrl}"]`).remove();
+                $.ajax({
+                    url: replyDeleteUrl,
+                    method: 'DELETE',
+                    success: function (data) {
 
+                    },
+                    error: function (data) {
+
+                    },
+
+                });
+                $('#ModalReplyDelete').modal('hide');
+            });
 
             $(document).on("click", ".btn-delete-modal-comment-yes", function (e) {
-                let commentID = $(this).attr("data-comment-id");
-                $('div.comments-div').find(`div[data-comment-id="${commentID}"]`).remove();
+                let commentDeleteUrl = $(this).attr("data-comment-delete-url");
+                $('div.comments-div').find(`div[data-comment-delete-url="${commentDeleteUrl}"]`).remove();
+                $('div.collapse').find(`div[data-comment-delete-url="${commentDeleteUrl}"]`).remove();
+                $.ajax({
+                    url: commentDeleteUrl,
+                    method: 'Delete',
+                    success: function (data) {
+
+                    },
+                    error: function (data) {
+
+                    },
+                });
                 $('#ModalCommentDelete').modal('hide');
             });
 
@@ -388,7 +451,7 @@
                 var keycode = (e.keyCode ? e.keyCode : e.which);
                 if (keycode == '13') {
                     e.preventDefault();
-                    let formData = new FormData();
+                    let formData = new FormData();-
                     formData.append("post", $(this).attr("data-post10-id"));
                     formData.append("content", $(this).val());
                     $(this).val("");
@@ -399,12 +462,35 @@
                         data: formData,
                         contentType: false,
                         processData: false,
-                        success: createComment,
+                        success: createComment, // TODO dynamic added post
                         error: onError,
                     });
                 }
                 e.stopPropagation();
             });
+            {#reply ajax#}
+            $('body').on('keypress', 'textarea.replyField', function (e) {
+                var keycode = (e.keyCode ? e.keyCode : e.which);
+                if (keycode == '13') {
+                    e.preventDefault();
+                    let formData = new FormData();
+                    formData.append("comment", $(this).attr("data-comment10-id"));
+                    formData.append("content", $(this).val());
+                    $(this).val("");
+                    console.log($(this).val());
+                    jQuery.ajax({
+                        url: '{% url 'create_reply' %}',
+                        method: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: createReply,
+                        error: onError,
+                    });
+                }
+                e.stopPropagation();
+            });
+
 
             jQuery(function () {
                     function sendAjax(event) {
@@ -443,11 +529,60 @@
 
                 }
             );
+            {#Create reply function#}
+
+            function createReply(data) {
+                $(".replies-div").append(`
+                        <div class="reply-published" data-reply-delete-url="${data.delete_url}">
+                            <div class="reply-result">
+                                <a href="#" class="profileside">
+                                    <img class="card-img-top "
+                                         src="https://gastrotochka.com/img/profile_noimage.png"
+                                         alt="Edit photo">
+                                    <span>{{ request.user.username }}</span> </a>
+                                <div class="dropdown">
+                                    <a href="#" class="profilemenu "
+                                       id="dropdownMenuButton"
+                                       data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false"><i
+                                            class="fa fa-ellipsis-h"
+                                            aria-hidden="true"></i></a>
+                                    <div class="dropdown-menu"
+                                         aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#"
+                                           data-toggle="modal"
+                                           data-target="#ModalReplyEdit">Edit</a>
+                                        <a class="dropdown-item reply-delete-btn"
+                                           href="#"
+                                           data-toggle="modal"
+                                           data-target="#ModalReplyDelete" data-reply-delete-url="${data.delete_url}">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="commented">
+                                <div class="row">
+                                    <div class="col-md-10 offset-md-1">
+                                        <p>${data.content}</p>
+                                        <div class="rep-com">
+                                            <a data-toggle="collapse"
+                                               href="#collapseExample2"
+                                               role="button"
+                                               aria-expanded="false"
+                                               aria-controls="collapseExample2"
+                                               class="reply-com">Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                `);
+            }
+
 
             function createComment(data) {
                 // TODO add attribute data-post-delete-url
                 $(".comments-div").append(`
-                <div class="commentbyuser" data-comment-id="${data.post}">
+                <div class="commentbyuser" data-comment-delete-url="${data.delete_url}">
                     <div class="comment-top">
                         <a href="#" class="profileside">
                             <img class="card-img-top "
@@ -465,7 +600,7 @@
                                 <a class="dropdown-item comment-delete-btn" href="#"
                                    data-toggle="modal"
                                    data-target="#ModalCommentDelete"
-                                   data-comment-id="${data.post}">Delete</a>
+                                   data-comment-delete-url="${data.delete_url}>Delete</a>
                             </div>
 
                         </div>
@@ -539,7 +674,7 @@
             function onSuccess(data) {
                 console.log(data);
                 jQuery("div.posts-div").prepend(`
-                   <div class="postfield comfield" data-post-id="${data.id}">
+                   <div class="postfield comfield" data-post10-id="${data.id}" data-post-delete-url="${data.delete_url}">
                     <div class="profile-top">
                         <a href="#" class="profileside">
                             <img class="card-img-top "
@@ -553,7 +688,7 @@
                                     aria-hidden="true"></i></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item post-delete-bn" href="#" data-toggle="modal"
-                                   data-post-id="{{ post.id }}"
+                                   data-post-id="{{ post.id }}"  data-post-delete-url="${data.delete_url}"
                                    data-target="#exampleModalDelete">Delete</a>
                             </div>
                         </div>
@@ -582,7 +717,7 @@
                                 <img class="card-img-top"
                                      src="https://gastrotochka.com/img/profile_noimage.png"
                                      alt="azizabonu">
-                                <textarea class="form-control commentfield " rows="1" cols="60" name="post_content"
+                                <textarea class="form-control commentfield " rows="1" data-post10-id="${data.id}" cols="60" name="post_content"
                                           placeholder="Enter your post"
                                           id="replyField" ></textarea>
                             </div>
