@@ -21,11 +21,10 @@ from userprofile.views import Home
 urlpatterns = [
 
     path('', Home.as_view(), name='home'),
-    path('userprofile/',include('userprofile.urls')),
+    path('userprofile/', include('userprofile.urls')),
 
     path('admin/', admin.site.urls),
-    path('accounts/',include('allauth.urls')),
-
-
+    path('accounts/', include('allauth.urls')),
+    path('api/', include('api.urls')),
 
 ]

@@ -17,4 +17,8 @@ urlpatterns = [
     path('post/<int:pk>/delete/', DestroyPost.as_view(), name='post-delete'),
     path('comment/<int:pk>/delete/', DestroyComment.as_view(), name='comment-delete'),
     path('reply/<int:pk>/delete/', DestroyReply.as_view(), name='post-delete'),
+
+
+
 ]
+
