@@ -1,5 +1,5 @@
 {% extends 'userprofile/base.html' %}
-
+{% load static %}
 {% block content %}
     <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
         <form action="{% url 'user_page' user.name %}" method="post">
@@ -41,7 +41,7 @@
                     <div class="profile-top">
                         <a href="#" class="profileside">
                             <img class="card-img-top "
-                                 src="https://gastrotochka.com/img/profile_noimage.png"
+                                 src="{% static 'img/profile_noimage.png' %}"
                                  alt="Edit photo"> <span>{{ request.user.username }}</span> </a>
                         <div class="dropdown">
                             <a href="#" class="profilemenu " id="dropdownMenuButton"
@@ -83,7 +83,7 @@
                                             <div class="comment-top">
                                                 <a href="#" class="profileside">
                                                     <img class="card-img-top "
-                                                         src="https://gastrotochka.com/img/profile_noimage.png"
+                                                         src="{% static 'img/profile_noimage.png' %}"
                                                          alt="Edit photo">
                                                     <span>{{ comment.author.user.username }}</span>
                                                 </a>
@@ -131,7 +131,7 @@
                                                             <div class="reply-result">
                                                                 <a href="#" class="profileside">
                                                                     <img class="card-img-top "
-                                                                         src="https://gastrotochka.com/img/profile_noimage.png"
+                                                                         src="{% static 'img/profile_noimage.png' %}"
                                                                          alt="Edit photo">
                                                                     <span>{{ comment.author.user.username }}</span> </a>
                                                                 <div class="dropdown">
@@ -174,7 +174,7 @@
                                                 </div>
                                                 <div class="comfieldarea">
                                                     <img class="card-img-top"
-                                                         src="https://gastrotochka.com/img/profile_noimage.png"
+                                                         src="{% static 'img/profile_noimage.png' %}"
                                                          alt="azizabonu">
                                                     <textarea class="replyField" rows="1" cols="40"
                                                               name="reply_content" data-comment10-id="{{ comment.id }}"
@@ -189,7 +189,7 @@
                             </div>
                             <div class="comfieldarea">
                                 <img class="card-img-top"
-                                     src="https://gastrotochka.com/img/profile_noimage.png"
+                                     src="{% static 'img/profile_noimage.png' %}"
                                      alt="azizabonu">
                                 <textarea class="form-control commentfield " rows="1" cols="60" name="comment_content"
                                           placeholder="Enter your post" data-post10-id="{{ post.id }}"
@@ -538,7 +538,7 @@
                             <div class="reply-result">
                                 <a href="#" class="profileside">
                                     <img class="card-img-top "
-                                         src="https://gastrotochka.com/img/profile_noimage.png"
+                                         src="{% static 'img/profile_noimage.png' %}"
                                          alt="Edit photo">
                                     <span>{{ request.user.username }}</span> </a>
                                 <div class="dropdown">
@@ -587,7 +587,7 @@
                     <div class="comment-top">
                         <a href="#" class="profileside">
                             <img class="card-img-top "
-                                 src="https://gastrotochka.com/img/profile_noimage.png"
+                                 src="{% static 'img/profile_noimage.png' %}"
                                  alt="Edit photo"> <span>{{ request.user.username }}</span>
                         </a>
                         <div class="dropdown">
@@ -628,7 +628,7 @@
                         <div class="reply-result">
                             <a href="#" class="profileside">
                                 <img class="card-img-top "
-                                     src="https://gastrotochka.com/img/profile_noimage.png"
+                                     src="{% static 'img/profile_noimage.png' %}"
                                      alt="Edit photo">
                                 <span>testUser</span> </a>
                             <div class="dropdown">
@@ -661,7 +661,7 @@
                         </div>
                         <div class="comfieldarea">
                             <img class="card-img-top"
-                                 src="https://gastrotochka.com/img/profile_noimage.png"
+                                 src="{% static 'img/profile_noimage.png' %}"
                                  alt="azizabonu">
                             <textarea class="replyField" rows="1" cols="40"
                                       name="comment"
@@ -679,7 +679,7 @@
                     <div class="profile-top">
                         <a href="#" class="profileside">
                             <img class="card-img-top "
-                                 src="https://gastrotochka.com/img/profile_noimage.png"
+                                 src="{% static 'img/profile_noimage.png' %}"
                                  alt="Edit photo"> <span>{{ request.user.username }}</span> </a>
                         <div class="dropdown">
                             <a href="#" class="profilemenu " id="dropdownMenuButton"
@@ -716,7 +716,7 @@
 
                             <div class="comfieldarea">
                                 <img class="card-img-top"
-                                     src="https://gastrotochka.com/img/profile_noimage.png"
+                                     src="{% static 'img/profile_noimage.png' %}"
                                      alt="azizabonu">
                                 <textarea class="form-control commentfield " rows="1" data-post10-id="${data.id}" cols="60" name="post_content"
                                           placeholder="Enter your post"
