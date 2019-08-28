@@ -600,14 +600,15 @@ div.postfield > div.loading:before {
     position: relative;
 }
 
-.user-user > .card-img-top {
+.user-user a .card-img-top {
     width: 15% !important;
     margin-right: 10px;
 }
 
-.user-user > .card-img-top:hover {
-    border: 2px solid #26b7e7;
+.user-user a .card-img-top:hover {
     border-radius: 50%;
+    border: 2px solid #26b7e7;
+
 }
 
 .user-user {
