@@ -50,7 +50,7 @@
                 <div class="col-md-6">
                     <div class="userProfileCard">
                         <div class="profile-top">
-                            <a href="#" class="profileside">
+                            <a href="{% url 'user_page' user.name %}" class="profileside">
                                 <img class="card-img-top "
                                      src="https://gastrotochka.com/img/profile_noimage.png"
                                      alt="Edit photo"> <span>{{ user.name }}</span> </a>

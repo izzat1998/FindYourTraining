@@ -4,6 +4,8 @@ from django.urls import reverse
 from userprofile.models import UserProfile
 
 
+
+
 class Post(models.Model):
     body = models.TextField(blank=True, null=True)
     date_pub = models.DateTimeField(auto_now_add=True)
@@ -17,7 +19,7 @@ class Post(models.Model):
         return self.body or ""
 
 
-    def get_delete_url(self) -> str:
+    def get_delete_url(self):
         return reverse("post-delete", kwargs={'pk': self.id})
 
 
@@ -50,3 +52,4 @@ class Reply(models.Model):
 
     def get_delete_url(self) -> str:
         return reverse("reply-delete", kwargs={'pk': self.id})
+
