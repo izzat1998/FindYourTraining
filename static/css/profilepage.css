@@ -173,6 +173,7 @@ div.card {
 
 div.form-col {
     align-items: normal;
+
 }
 
 .bodycard {
@@ -201,6 +202,7 @@ div.profile-page {
 div.posticons span {
     color: black;
     font-weight: bold;
+
 }
 
 div.posticons {
@@ -208,7 +210,7 @@ div.posticons {
     padding-left: 15px;
 }
 
-div.postfield button.button-sub {
+div.postfield button.button-sub, input.button-sub {
     padding: 10px 20px;
     color: white;
     background-color: #26b7e7;
@@ -239,15 +241,19 @@ div.postfield button.button-sub {
 }
 
 .search-but .button-sub {
-    margin-right: 30px;
     padding: 10px 20px;
+    margin-right: 20px;
+
 
 }
 
-
 .search-but {
     margin-top: 20px;
+    position: relative;
+    width: 100%;
+    height: auto;
     text-align: right;
+
 }
 
 .userProfileCard img.card-img-top,
@@ -496,6 +502,10 @@ div.postfield > div.loading:before {
     border-top: 1px solid #E5E5E5;
     border-radius: 0;
     padding: 20px 20px;
+    width: 100%;
+    height: auto;
+    position: relative;
+    display: block;
 }
 
 .ser-fri {
@@ -573,3 +583,48 @@ div.postfield > div.loading:before {
     color: #26b7e7;
     transition: .5s ease-in;
 }
+
+.custom-div {
+    width: 228px;
+    height: auto;
+    background-color: #FFFFFF;
+    position: absolute;
+    margin-top: 34px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: none;
+}
+
+.search-user {
+    position: relative;
+}
+
+.user-user > .card-img-top {
+    width: 15% !important;
+    margin-right: 10px;
+}
+
+.user-user > .card-img-top:hover {
+    border: 2px solid #26b7e7;
+    border-radius: 50%;
+}
+
+.user-user {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+.user-user:hover {
+    transition: all 0.2s ease;
+    background-color: #D9F6FF;
+    color: #26b7e7;
+}
+
+.nameGroup {
+    margin-bottom: 0;
+}
+

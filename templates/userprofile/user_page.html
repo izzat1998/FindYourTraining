@@ -1,5 +1,5 @@
 {% extends 'userprofile/base.html' %}
-{% block name %} {{ user.name }} {% endblock %}
+{% load static %}
 {% block content %}
     <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
         <form action="{% url 'user_page' user.name %}" method="post">
@@ -42,7 +42,7 @@
                         <a href="#" class="profileside">
                             <img class="card-img-top "
                                  src="https://gastrotochka.com/img/profile_noimage.png"
-                                 alt="Edit photo"> <span>{{ post.author.name }}</span> </a>
+                                 alt="Edit photo"> <span>{{ request.user.username }}</span> </a>
                         <div class="dropdown">
                             <a href="#" class="profilemenu " id="dropdownMenuButton"
                                data-toggle="dropdown"

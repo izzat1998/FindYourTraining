@@ -15,7 +15,6 @@ class UserProfileGet(ListAPIView):
     serializer_class = UserProfileSerializer
 
     def get_queryset(self):
-
         qs = UserProfile.objects.all()
         query = self.request.GET.get('q')
         print(query)
@@ -29,6 +28,7 @@ class UserProfileGet(ListAPIView):
 class UserProfileDetail(APIView):
     lookup_field = 'id'
     serializer_class = UserProfileSerializer
+
     def get(self, request, id):
         user = UserProfile.objects.get(id=id)
         print(user)
