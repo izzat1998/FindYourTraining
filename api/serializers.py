@@ -1,3 +1,5 @@
+from django.http.response import HttpResponseRedirect
+from django.urls import reverse
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from post.models import Post, Comment, Reply
@@ -5,9 +7,14 @@ from userprofile.models import UserProfile
 
 
 class UserProfileSerializer(ModelSerializer):
+    userprofile_page = SerializerMethodField('get_userprofile_page')
+
     class Meta:
         model = UserProfile
-        fields = ('id', 'name', 'birth_date')
+        fields = ('id', 'name', 'birth_date', 'userprofile_page')
+
+    def get_userprofile_page(self, obj):
+        return obj.profile_page_url
 
 
 class PostSerializer(ModelSerializer):
@@ -17,8 +24,7 @@ class PostSerializer(ModelSerializer):
         model = Post
         fields = ('id', 'body', 'delete_url')
 
-
-    def get_delete_url(self, obj ):
+    def get_delete_url(self, obj):
         return obj.get_delete_url()
 
 

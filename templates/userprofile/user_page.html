@@ -2,205 +2,208 @@
 {% load static %}
 {% block content %}
     <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-        <form action="{% url 'user_page' user.name %}" method="post">
-            {% csrf_token %}
-            <div class="postfield">
-                <div class="posticons">
-                    <input type="file" style="display: none;  " name="fileupload"
-                           value="fileupload"
-                           id="fileupload">
-                    <a id="upload-btn-p">
-                        <span><i class="fa fa-fw fa-camera"></i> Photo</span>
-                    </a>
-                    /
-                    <a id="upload-btn-v">
-                        <span><i class="fa fa-fw fa-video-camera"></i> Video</span>
-                    </a>
-                </div>
-                <div class="form-em">
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                                <textarea class="form-control postarea" rows="3" name="post_content"
-                                          placeholder="Enter your post"
-                                          id="post_content"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group button-postfield">
-                    <button type="submit" id="post_create" class="button-sub"
-                            data-url="{% url 'create_post' %}">Submit
-                    </button>
-                </div>
-                <div class="loading" style="display: none;">Loading&#8230;</div>
-            </div>
-        </form>
-        {#  post comment#}
-        <div class="posts-div">
-            {% for post in posts %}
-                <div class="postfield comfield" data-post-delete-url="{% url 'post-delete' post.id %}">
-                    <div class="profile-top">
-                        <a href="#" class="profileside">
-                            <img class="card-img-top "
-                                 src="{% static 'img/profile_noimage.png' %}"
-                                 alt="Edit photo"> <span>{{ request.user.username }}</span> </a>
-                        <div class="dropdown">
-                            <a href="#" class="profilemenu " id="dropdownMenuButton"
-                               data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false"><i
-                                    class="fa fa-ellipsis-h"
-                                    aria-hidden="true"></i></a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item post-delete-bn" href="#" data-toggle="modal"
-                                   data-post-id="{{ post.id }}" data-post-delete-url="{% url 'post-delete' post.id %}"
-                                   data-target="#exampleModalDelete">Delete</a>
-                            </div>
-                        </div>
+        {% if user.user == request.user %}
+            <form action="{% url 'user_page' user.name %}" method="post">
+                {% csrf_token %}
+                <div class="postfield">
+                    <div class="posticons">
+                        <input type="file" style="display: none;  " name="fileupload"
+                               value="fileupload"
+                               id="fileupload">
+                        <a id="upload-btn-p">
+                            <span><i class="fa fa-fw fa-camera"></i> Photo</span>
+                        </a>
+                        /
+                        <a id="upload-btn-v">
+                            <span><i class="fa fa-fw fa-video-camera"></i> Video</span>
+                        </a>
                     </div>
                     <div class="form-em">
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <p>{{ post }}</p>
-
+                                <textarea class="form-control postarea" rows="3" name="post_content"
+                                          placeholder="Enter your post"
+                                          id="post_content"></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="likesandcomment">
-                        <a data-toggle="collapse" href="#collapseExample{{ post.id }}"
-                           role="button"
-                           aria-expanded="false" aria-controls="collapseExample" class="class">
-                            <div><i class="fa fa-comment-o"></i> <span> Comment</span></div>
-                        </a>
-
-                        <div><i class="fa fa-star-o"></i><span> Likes</span></div>
+                    <div class="form-group button-postfield">
+                        <button type="submit" id="post_create" class="button-sub"
+                                data-url="{% url 'create_post' %}">Submit
+                        </button>
                     </div>
-                    <div class="collapse" id="collapseExample{{ post.id }}">
-                        <div class="collapse-com">
-                            <div class="comments-div">
-                                {% for comment in post.comment_set.all %}
-                                    <div class="commentAndReply"
-                                         data-comment-delete-url="{% url 'comment-delete' comment.id %}">
-                                        <div class="commentbyuser">
-                                            <div class="comment-top">
-                                                <a href="#" class="profileside">
-                                                    <img class="card-img-top "
-                                                         src="{% static 'img/profile_noimage.png' %}"
-                                                         alt="Edit photo">
-                                                    <span>{{ comment.author.user.username }}</span>
-                                                </a>
-                                                <div class="dropdown">
-                                                    <a href="#" class="profilemenu " id="dropdownMenuButton"
-                                                       data-toggle="dropdown"
-                                                       aria-haspopup="true" aria-expanded="false"><i
-                                                            class="fa fa-ellipsis-h"
-                                                            aria-hidden="true"></i></a>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item edit-button" href="#"
-                                                           data-toggle="modal"
-                                                           data-target="#ModalCommentEdit">Edit</a>
-                                                        <a class="dropdown-item comment-delete-btn" href="#"
-                                                           data-toggle="modal"
-                                                           data-target="#ModalCommentDelete"
-                                                           data-comment-delete-url="{% url 'comment-delete' comment.id %}">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="commented">
-                                                <div class="row">
-                                                    <div class="col-md-10 offset-md-1">
-                                                        <p>{{ comment.content }}</p>
-                                                        <div class="rep-com">
-                                                            <a data-toggle="collapse"
-                                                               href="#collapseExampleReply{{ comment.id }}"
-                                                               role="button"
-                                                               aria-expanded="false"
-                                                               aria-controls="collapseExampleReply{{ comment.id }}"
-                                                               class="reply-com">Reply</a>
+                    <div class="loading" style="display: none;">Loading&#8230;</div>
+                </div>
+            </form>
+        {% endif %}
+            {#  post comment#}
+            <div class="posts-div">
+                {% for post in posts %}
+                    <div class="postfield comfield" data-post-delete-url="{% url 'post-delete' post.id %}">
+                        <div class="profile-top">
+                            <a href="#" class="profileside">
+                                <img class="card-img-top "
+                                     src="https://gastrotochka.com/img/profile_noimage.png"
+                                     alt="Edit photo"> <span>{{ user.name }}</span> </a>
+                            <div class="dropdown">
+                                <a href="#" class="profilemenu " id="dropdownMenuButton"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false"><i
+                                        class="fa fa-ellipsis-h"
+                                        aria-hidden="true"></i></a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item post-delete-bn" href="#" data-toggle="modal"
+                                       data-post-id="{{ post.id }}" data-post-delete-url="{% url 'post-delete' post.id %}"
+                                       data-target="#exampleModalDelete">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-em">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <p>{{ post }}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="likesandcomment">
+                            <a data-toggle="collapse" href="#collapseExample{{ post.id }}"
+                               role="button"
+                               aria-expanded="false" aria-controls="collapseExample" class="class">
+                                <div><i class="fa fa-comment-o"></i> <span> Comment</span></div>
+                            </a>
+
+                            <div><i class="fa fa-star-o"></i><span> Likes</span></div>
+                        </div>
+                        <div class="collapse" id="collapseExample{{ post.id }}">
+                            <div class="collapse-com">
+                                <div class="comments-div">
+                                    {% for comment in post.comment_set.all %}
+                                        <div class="commentAndReply"
+                                             data-comment-delete-url="{% url 'comment-delete' comment.id %}">
+                                            <div class="commentbyuser">
+                                                <div class="comment-top">
+                                                    <a href="#" class="profileside">
+                                                        <img class="card-img-top "
+                                                             src="https://gastrotochka.com/img/profile_noimage.png"
+                                                             alt="Edit photo">
+                                                        <span>{{ comment.author.user.username }}</span>
+                                                    </a>
+                                                    <div class="dropdown">
+                                                        <a href="#" class="profilemenu " id="dropdownMenuButton"
+                                                           data-toggle="dropdown"
+                                                           aria-haspopup="true" aria-expanded="false"><i
+                                                                class="fa fa-ellipsis-h"
+                                                                aria-hidden="true"></i></a>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item edit-button" href="#"
+                                                               data-toggle="modal"
+                                                               data-target="#ModalCommentEdit">Edit</a>
+                                                            <a class="dropdown-item comment-delete-btn" href="#"
+                                                               data-toggle="modal"
+                                                               data-target="#ModalCommentDelete"
+                                                               data-comment-delete-url="{% url 'comment-delete' comment.id %}">Delete</a>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="commented">
+                                                    <div class="row">
+                                                        <div class="col-md-10 offset-md-1">
+                                                            <p>{{ comment.content }}</p>
+                                                            <div class="rep-com">
+                                                                <a data-toggle="collapse"
+                                                                   href="#collapseExampleReply{{ comment.id }}"
+                                                                   role="button"
+                                                                   aria-expanded="false"
+                                                                   aria-controls="collapseExampleReply{{ comment.id }}"
+                                                                   class="reply-com">Reply</a>
+                                                            </div>
+                                                        </div>
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="collapse" id="collapseExampleReply{{ comment.id }}">
-                                            {#   reply area#}
-                                            <div class="replyArea">
-                                                <div class="replies-div">
-                                                    {% for reply in comment.reply_set.all %}
-                                                        <div class="reply-published"
-                                                             data-reply-delete-url="{% url 'reply-delete' reply.id %}">
-                                                            <div class="reply-result">
-                                                                <a href="#" class="profileside">
-                                                                    <img class="card-img-top "
-                                                                         src="{% static 'img/profile_noimage.png' %}"
-                                                                         alt="Edit photo">
-                                                                    <span>{{ comment.author.user.username }}</span> </a>
-                                                                <div class="dropdown">
-                                                                    <a href="#" class="profilemenu "
-                                                                       id="dropdownMenuButton"
-                                                                       data-toggle="dropdown"
-                                                                       aria-haspopup="true" aria-expanded="false"><i
-                                                                            class="fa fa-ellipsis-h"
-                                                                            aria-hidden="true"></i></a>
-                                                                    <div class="dropdown-menu"
-                                                                         aria-labelledby="dropdownMenuButton">
-                                                                        <a class="dropdown-item" href="#"
-                                                                           data-toggle="modal"
-                                                                           data-target="#ModalReplyEdit">Edit</a>
-                                                                        <a class="dropdown-item reply-delete-btn"
-                                                                           href="#"
-                                                                           data-toggle="modal"
-                                                                           data-target="#ModalReplyDelete"
-                                                                           data-reply-delete-url="{% url 'reply-delete' reply.id %}">Delete</a>
+                                            <div class="collapse" id="collapseExampleReply{{ comment.id }}">
+                                                {#   reply area#}
+                                                <div class="replyArea">
+                                                    <div class="replies-div">
+                                                        {% for reply in comment.reply_set.all %}
+                                                            <div class="reply-published"
+                                                                 data-reply-delete-url="{% url 'reply-delete' reply.id %}">
+                                                                <div class="reply-result">
+                                                                    <a href="#" class="profileside">
+                                                                        <img class="card-img-top "
+                                                                             src="https://gastrotochka.com/img/profile_noimage.png"
+                                                                             alt="Edit photo">
+                                                                        <span>{{ comment.author.user.username }}</span> </a>
+                                                                    <div class="dropdown">
+                                                                        <a href="#" class="profilemenu "
+                                                                           id="dropdownMenuButton"
+                                                                           data-toggle="dropdown"
+                                                                           aria-haspopup="true" aria-expanded="false"><i
+                                                                                class="fa fa-ellipsis-h"
+                                                                                aria-hidden="true"></i></a>
+                                                                        <div class="dropdown-menu"
+                                                                             aria-labelledby="dropdownMenuButton">
+                                                                            <a class="dropdown-item" href="#"
+                                                                               data-toggle="modal"
+                                                                               data-target="#ModalReplyEdit">Edit</a>
+                                                                            <a class="dropdown-item reply-delete-btn"
+                                                                               href="#"
+                                                                               data-toggle="modal"
+                                                                               data-target="#ModalReplyDelete"
+                                                                               data-reply-delete-url="{% url 'reply-delete' reply.id %}">Delete</a>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="commented">
-                                                                <div class="row">
-                                                                    <div class="col-md-10 offset-md-1">
-                                                                        <p>{{ reply.content }}</p>
-                                                                        <div class="rep-com">
-                                                                            <a data-toggle="collapse"
-                                                                               href="#collapseExample2"
-                                                                               role="button"
-                                                                               aria-expanded="false"
-                                                                               aria-controls="collapseExample2"
-                                                                               class="reply-com">Reply</a>
+                                                                <div class="commented">
+                                                                    <div class="row">
+                                                                        <div class="col-md-10 offset-md-1">
+                                                                            <p>{{ reply.content }}</p>
+                                                                            <div class="rep-com">
+                                                                                <a data-toggle="collapse"
+                                                                                   href="#collapseExample2"
+                                                                                   role="button"
+                                                                                   aria-expanded="false"
+                                                                                   aria-controls="collapseExample2"
+                                                                                   class="reply-com">Reply</a>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    {% endfor %}
-                                                </div>
-                                                <div class="comfieldarea">
-                                                    <img class="card-img-top"
-                                                         src="{% static 'img/profile_noimage.png' %}"
-                                                         alt="azizabonu">
-                                                    <textarea class="replyField" rows="1" cols="40"
-                                                              name="reply_content" data-comment10-id="{{ comment.id }}"
-                                                              form="usrform" placeholder="enter your reply"
-                                                              autofocus></textarea>
-                                                </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <div class="comfieldarea">
+                                                        <img class="card-img-top"
+                                                             src="https://gastrotochka.com/img/profile_noimage.png"
+                                                             alt="azizabonu">
+                                                        <textarea class="replyField" rows="1" cols="40"
+                                                                  name="reply_content" data-comment10-id="{{ comment.id }}"
+                                                                  form="usrform" placeholder="enter your reply"
+                                                                  autofocus></textarea>
+                                                    </div>
 
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                            <div class="comfieldarea">
-                                <img class="card-img-top"
-                                     src="{% static 'img/profile_noimage.png' %}"
-                                     alt="azizabonu">
-                                <textarea class="form-control commentfield " rows="1" cols="60" name="comment_content"
-                                          placeholder="Enter your post" data-post10-id="{{ post.id }}"
-                                          id="comment_content"></textarea>
+                                    {% endfor %}
+                                </div>
+                                <div class="comfieldarea">
+                                    <img class="card-img-top"
+                                         src="https://gastrotochka.com/img/profile_noimage.png"
+                                         alt="azizabonu">
+                                    <textarea class="form-control commentfield " rows="1" cols="60" name="comment_content"
+                                              placeholder="Enter your post" data-post10-id="{{ post.id }}"
+                                              id="comment_content"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3"></div>
+                {% endfor %}
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3"></div>
+
     </div>
 
     <!-- EDIT reply -->
@@ -361,9 +364,10 @@
                 console.log(a);
 
             })
-            $('.edit-button').click(function (){
+            $('.edit-button').click(function () {
                 $('#ModalCommentEdit').find('editField')
-                {$(this).val(p);
+                {
+                    $(this).val(p);
                 }
             })
         })
@@ -409,7 +413,7 @@
 
                     },
                     error: function (data) {
-                            alert("error")
+                        alert("error")
                     },
                 });
                 $('#exampleModalDelete').modal('hide');
@@ -452,8 +456,9 @@
                 var keycode = (e.keyCode ? e.keyCode : e.which);
                 if (keycode == '13') {
                     e.preventDefault();
-                    let formData = new FormData();-
-                    formData.append("post", $(this).attr("data-post10-id"));
+                    let formData = new FormData();
+                    -
+                        formData.append("post", $(this).attr("data-post10-id"));
                     formData.append("content", $(this).val());
                     $(this).val("");
                     console.log($(this).val());
@@ -538,7 +543,7 @@
                             <div class="reply-result">
                                 <a href="#" class="profileside">
                                     <img class="card-img-top "
-                                         src="{% static 'img/profile_noimage.png' %}"
+                                         src="https://gastrotochka.com/img/profile_noimage.png"
                                          alt="Edit photo">
                                     <span>{{ request.user.username }}</span> </a>
                                 <div class="dropdown">
@@ -587,7 +592,7 @@
                     <div class="comment-top">
                         <a href="#" class="profileside">
                             <img class="card-img-top "
-                                 src="{% static 'img/profile_noimage.png' %}"
+                                 src="https://gastrotochka.com/img/profile_noimage.png"
                                  alt="Edit photo"> <span>{{ request.user.username }}</span>
                         </a>
                         <div class="dropdown">
@@ -628,7 +633,7 @@
                         <div class="reply-result">
                             <a href="#" class="profileside">
                                 <img class="card-img-top "
-                                     src="{% static 'img/profile_noimage.png' %}"
+                                     src="https://gastrotochka.com/img/profile_noimage.png"
                                      alt="Edit photo">
                                 <span>testUser</span> </a>
                             <div class="dropdown">
@@ -661,7 +666,7 @@
                         </div>
                         <div class="comfieldarea">
                             <img class="card-img-top"
-                                 src="{% static 'img/profile_noimage.png' %}"
+                                 src="https://gastrotochka.com/img/profile_noimage.png"
                                  alt="azizabonu">
                             <textarea class="replyField" rows="1" cols="40"
                                       name="comment"
@@ -679,7 +684,7 @@
                     <div class="profile-top">
                         <a href="#" class="profileside">
                             <img class="card-img-top "
-                                 src="{% static 'img/profile_noimage.png' %}"
+                                 src="https://gastrotochka.com/img/profile_noimage.png"
                                  alt="Edit photo"> <span>{{ request.user.username }}</span> </a>
                         <div class="dropdown">
                             <a href="#" class="profilemenu " id="dropdownMenuButton"
@@ -716,7 +721,7 @@
 
                             <div class="comfieldarea">
                                 <img class="card-img-top"
-                                     src="{% static 'img/profile_noimage.png' %}"
+                                     src="https://gastrotochka.com/img/profile_noimage.png"
                                      alt="azizabonu">
                                 <textarea class="form-control commentfield " rows="1" data-post10-id="${data.id}" cols="60" name="post_content"
                                           placeholder="Enter your post"

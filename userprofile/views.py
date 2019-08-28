@@ -33,7 +33,7 @@ class Login(View):
 
 class UserPage(View):
     def get(self, request, username):
-        current_user = UserProfile.objects.get(user=request.user)
+        current_user = UserProfile.objects.get(name=username)
         posts = Post.objects.filter(author=current_user)
         friends = UserProfile.objects.all()
         return render(request, 'userprofile/user_page.html',
@@ -93,4 +93,9 @@ class PostComment(View):
 
 
 class Home(TemplateView):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('user_page', kwargs={'username': request.user.username}))
+        return super(Home, self).dispatch(request, *args, **kwargs)
+
     template_name = 'userprofile/page-login.html'
