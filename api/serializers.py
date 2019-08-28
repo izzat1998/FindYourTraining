@@ -22,7 +22,7 @@ class PostSerializer(ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('id', 'body', 'delete_url')
+        fields = ('id', 'body', 'file', 'delete_url')
 
     def get_delete_url(self, obj):
         return obj.get_delete_url()

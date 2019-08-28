@@ -7,7 +7,8 @@ from userprofile.models import UserProfile
 
 
 class Post(models.Model):
-    body = models.TextField(blank=True, null=True)
+    body = models.TextField( blank=True, null=True)
+    file = models.FileField(upload_to='media/', blank=True,null=True)
     date_pub = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)

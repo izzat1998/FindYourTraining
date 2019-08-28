@@ -62,6 +62,10 @@
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <p>{{ post }}</p>
+                                    {% if post.file %}
+                                        <h1></h1>
+                                        <img src="{{ post.file.url }}" alt="img">
+                                    {% endif %}
 
                                 </div>
                             </div>
