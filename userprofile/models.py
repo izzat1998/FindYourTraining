@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 
 
 class Requests(models.Model):
@@ -14,6 +15,10 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def profile_page_url(self):
+        return reverse('user_page', kwargs={'username': self.user.username})
 
 
 class Friend(models.Model):

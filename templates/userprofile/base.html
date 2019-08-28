@@ -70,7 +70,7 @@
                             </form>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
 
                         <li class="nav-item ">
@@ -125,7 +125,7 @@
                             </div>
                         </a>
                         <div class="card-body bodycard">
-                            <h5 class="card-title text-center imagetitle">Bonu Isroilova </h5>
+                            <h5 class="card-title text-center imagetitle">{{ user.name }}</h5>
                         </div>
 
                         <div class="modal fade" id="myModal">
@@ -203,11 +203,12 @@
                 url: '/api/users_list/' + '?q' + '=' + userSearch,
                 method: 'GET',
                 success: function (data) {
+                    console.log(data)
                     var htmll = ``;
                     if (data.length > 0) {
                         for (i = 0; i < data.length; i++) {
                             htmll += `<div class="user-user">
-                                                <img class="card-img-top "
+                                              <a href="${data[i].userprofile_page}"><img class="card-img-top "
                                                      src="{% static 'img/profile_noimage.png' %}"
                                                      alt="Edit photo"> <span>${data[i].name}</span> </a>
                                             </div>`;

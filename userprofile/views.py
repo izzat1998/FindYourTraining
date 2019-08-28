@@ -93,4 +93,9 @@ class PostComment(View):
 
 
 class Home(TemplateView):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('user_page', kwargs={'username': request.user.username}))
+        return super(Home, self).dispatch(request, *args, **kwargs)
+
     template_name = 'userprofile/page-login.html'
