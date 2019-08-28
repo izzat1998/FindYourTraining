@@ -18,7 +18,7 @@ class PostSerializer(ModelSerializer):
         fields = ('id', 'body', 'delete_url')
 
 
-    def get_delete_url(self, obj):
+    def get_delete_url(self, obj ):
         return obj.get_delete_url()
 
 
