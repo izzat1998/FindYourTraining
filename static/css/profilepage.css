@@ -629,3 +629,97 @@ div.postfield > div.loading:before {
     margin-bottom: 0;
 }
 
+.gallery {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+
+}
+
+.image-div {
+    width: 100%;
+    height: 150px;
+    display: none;
+}
+
+.image-div-block {
+    display: block;
+}
+
+.image {
+    width: 120px;
+    height: 120px;
+    margin: 5px;
+    /*float: left;*/
+}
+
+.border-image {
+    border: 2px dashed #b3b3b3;
+    position: relative;
+    align-items: center;
+    float: left;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    margin: 5px;
+    display: none;
+    cursor: pointer;
+}
+
+.border-image.active {
+    display: flex;
+}
+
+.border-image > i {
+    position: absolute;
+    color: #b3b3b3;
+    font-size: 40px;
+    font-weight: bold;
+
+}
+
+.file-upload {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #BFBFBF;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #BFBFBF;
+}
+
+#overlay-image {
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+
+.imageStyle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
